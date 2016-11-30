@@ -1,0 +1,57 @@
+.page-transition {
+    &-appear {
+        opacity: 0.01;
+
+        &-active {
+            opacity: 1;
+            transition: opacity 200ms $enter;
+        }
+    }
+
+    &-enter {
+        opacity: 0.01;
+
+        &-active {
+            opacity: 1;
+            transition: opacity 200ms $enter;
+        }
+    }
+
+    &-leave {
+        opacity: 1;
+
+        &-active {
+            opacity: 0.01;
+            transition: opacity 200ms $exit;
+        }
+    }
+}
+
+//.grow-transition {
+//    &-appear {
+//        opacity: 0.01;
+//
+//        &-active {
+//            opacity: 1;
+//            transition: opacity 200ms $enter;
+//        }
+//    }
+//
+//    &-enter {
+//        opacity: 0.01;
+//
+//        &-active {
+//            opacity: 1;
+//            transition: opacity 200ms $enter;
+//        }
+//    }
+//
+//    &-leave {
+//        opacity: 1;
+//
+//        &-active {
+//            opacity: 0.01;
+//            transition: opacity 200ms $exit;
+//        }
+//    }
+//}

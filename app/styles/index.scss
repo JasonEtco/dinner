@@ -1,0 +1,15 @@
+@import './reset';
+@import './circular';
+@import './variables';
+@import './animations';
+
+html { background-color: $red; }
+
+body {
+    min-height: 100vh;
+    background-color: $almost-white;
+    font-family: $roboto;
+}
+
+h1, h2, h3, h4 { margin: 0; font-family: $circular; }
+button { font-size: inherit; font-family: inherit; cursor: pointer; }

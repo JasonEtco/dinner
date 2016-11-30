@@ -1,0 +1,25 @@
+@import '../../../../styles/variables';
+
+.input {
+    &__label {
+        display: block;
+        color: $grey;
+        font-size: 0.8rem;
+    }
+
+    &__input {
+        display: block;
+        box-sizing: border-box;
+        max-width: 100%;
+        padding: 0.6em;
+        border-radius: 3px;
+        border: 1px solid darken(white, 20%);
+    }
+
+    &--full {
+        width: 100%;
+        margin: 0;
+
+        .input__input { width: 100%; }
+    }
+}

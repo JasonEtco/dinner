@@ -1,0 +1,36 @@
+@import '../../../../styles/variables';
+
+.btn {
+    padding: 1em;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    color: $red;
+    font-size: 0.8rem;
+    transition: background 150ms $standard;
+
+    &--yes {
+        border: none;
+        background: $red;
+        color: white;
+
+        &:hover { background: darken($red, 10%); }
+    }
+
+    &--no {
+        border: none;
+        background: $dark-grey;
+        color: white;
+
+        &:hover { background: darken($dark-grey, 10%); }
+    }
+
+    &--card {
+        @extend %card;
+        border: none;
+        color: $dark-grey;
+        font-weight: 700;
+        transition: background-color 200ms $standard, box-shadow 200ms $standard;
+
+        &:hover { background-color: $almost-white; @include box-shadow(2); }
+    }
+}

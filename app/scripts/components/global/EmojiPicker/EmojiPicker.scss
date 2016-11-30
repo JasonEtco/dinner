@@ -1,0 +1,97 @@
+.emj {
+    position: relative;
+    display: inline-block;
+
+    &__btn {
+        padding: 0;
+        border: 0;
+        margin: 0;
+        background: none;
+    }
+
+    &__wrapper {
+        position: absolute;
+        top: 2em;
+        left: 50%;
+        box-sizing: border-box;
+        width: 300px;
+        height: 300px;
+        padding: 1em;
+        box-shadow: 0 2px 4px rgba(black, 0.2);
+        border-radius: 3px;
+        background: white;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, -10px);
+        transition: opacity 150ms, transform 200ms;
+
+        &.is-open {
+            pointer-events: initial;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: calc(50% - 6px);
+            width: 0;
+            height: 0;
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent;
+            border-bottom-color: white;
+        }
+    }
+
+    &__search {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.4em;
+        border: 1px solid darken(white, 15%);
+        border-radius: 3px;
+        margin-bottom: 0.4em;
+        background: white;
+    }
+
+    &__list {
+        display: flex;
+        overflow: auto;
+        height: calc(100% - 2em);
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        flex-wrap: wrap;
+
+        &::-webkit-scrollbar { width: 6px; }
+
+        &::-webkit-scrollbar-track { background-color: lightgrey; }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 6px / 2;
+            background-color: grey;
+        }
+    }
+
+    &__emoji {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1em;
+        height: 1em;
+        padding: 0.4em;
+
+        button {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            background: none;
+            outline: none;
+        }
+
+        &.is-active {
+            background-color: #3c6dff;
+        }
+    }
+}
