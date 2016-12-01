@@ -14,3 +14,17 @@
         background-color: $red;
     }
 }
+
+.room-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    max-width: 500px;
+    height: 100vh;
+    transform: translateX(-100%);
+
+    &.in-room {
+        transform: translateX(0);
+    }
+}

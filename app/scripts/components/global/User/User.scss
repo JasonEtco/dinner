@@ -1,0 +1,31 @@
+@import '../../../../styles/variables';
+
+.user {
+    position: relative;
+    display: block;
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    background-color: blue;
+
+    &__tooltip {
+        position: absolute;
+        top: 1em;
+        left: 6em;
+        white-space: pre;
+        padding: 0.8em;
+        border-radius: 3px;
+        background: $dark-grey;
+        color: white;
+        font-size: 0.8rem;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include triangle(left, 6px, $dark-grey);
+            transform: translate(-100%, 100%);
+        }
+    }
+}

@@ -13,13 +13,8 @@ export default class User extends Component {
     const { id, name, prefix, isMe } = this.props;
 
     return (
-      <div>
-        <p>
-          {id} {prefix} {name}
-        </p>
-        <p>
-          {isMe ? 'Its you!' : 'Its not you!'}
-        </p>
+      <div className={`user ${isMe ? 'user--me' : ''}`}>
+        <span className="user__tooltip">{prefix} {name}</span>
       </div>
     );
   }

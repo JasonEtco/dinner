@@ -5,9 +5,16 @@ import './App.scss';
 import { getRooms } from '../../../actions/roomActions';
 import { getUsers } from '../../../actions/userActions';
 import { me } from '../../../actions/generalActions';
-import User from '../../global/User';
+import Room from '../Room';
+import Table from '../Table';
 
-class App extends Component {
+export default class App extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    users: PropTypes.object.isRequired,
+    socket: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,10 +43,9 @@ class App extends Component {
   }
 
   render() {
-    const { users, general, socket } = this.props;
-    const { name, prefix } = general;
+    const { users, socket } = this.props;
 
-    if (!name) {
+    if (!users[socket.id]) {
       return (
         <form onSubmit={this.handleSubmit}>
           <input type="text" ref={(r) => { this.name = r; }} />
@@ -47,28 +53,16 @@ class App extends Component {
       );
     }
 
+    const { name, prefix, currentRoom } = users[socket.id];
+
     return (
       <div style={{ height: '100%' }}>
         <h1>Hi there {prefix} {name}!</h1>
-
-        {Object.keys(users).map(key =>
-          <User
-            isMe={key === socket.id}
-            key={key}
-            id={key}
-            name={users[key].name}
-            prefix={users[key].prefix}
-          />)}
+        <Table {...this.props} />
+        <div className={`room-wrapper ${currentRoom !== 'none' ? 'in-room' : ''}`}>
+          <Room {...this.props} currentRoom={parseInt(currentRoom, 10)} />
+        </div>
       </div>
     );
   }
 }
-
-App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  general: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
-  socket: PropTypes.object.isRequired,
-};
-
-export default App;
