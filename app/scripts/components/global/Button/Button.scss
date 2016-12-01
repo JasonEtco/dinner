@@ -33,4 +33,14 @@
 
         &:hover { background-color: $almost-white; @include box-shadow(2); }
     }
+
+    &--card--dark {
+        @extend %card;
+        border: none;
+        background-color: $dark-grey;
+        color: white;
+        transition: background-color 200ms $standard, box-shadow 200ms $standard;
+
+        &:hover { background-color: lighten($dark-grey, 10%); @include box-shadow(2); }
+    }
 }
