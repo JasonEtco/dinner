@@ -16,6 +16,7 @@
 
     &__message {
         width: 80%;
+        word-wrap: break-word;
 
         & + & {
             margin-top: 1em;

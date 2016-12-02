@@ -62,7 +62,15 @@ export default class App extends Component {
         <div className="app">
           <form className="app__welcome" onSubmit={this.handleSubmit}>
             <h1>Welcome to Thanksgiving Dinner! What's your name again?</h1>
-            <Input autofocus required name="name" label="Your name" placeholder="John Smith" ref={(r) => { this.name = r; }} />
+            <Input
+              autofocus
+              required
+              max={12}
+              name="name"
+              label="Your name"
+              placeholder="John Smith"
+              ref={(r) => { this.name = r; }}
+            />
             <Button text="Go take a seat" style="card--dark" type="submit" />
           </form>
         </div>

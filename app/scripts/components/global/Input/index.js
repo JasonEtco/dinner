@@ -3,13 +3,14 @@ import './Input.scss';
 
 class Input extends Component {
   render() {
-    const { name, placeholder, label, full, autofocus, required } = this.props;
+    const { name, placeholder, label, full, autofocus, required, max } = this.props;
 
     return (
       <div className={`input ${full ? 'input--full' : ''}`}>
         <label className="input__label" htmlFor={`inp-${name}`}>{label}</label>
         <input
           type="text"
+          max={max}
           className="input__input"
           id={`inp-${name}`}
           placeholder={placeholder}
@@ -29,6 +30,7 @@ Input.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
+  max: PropTypes.number,
 };
 
 export default Input;

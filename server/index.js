@@ -32,6 +32,7 @@ io.on('connection', (socket) => {
     fireRef.database().ref(`users/${socket.id}`).remove();
     fireRef.database().ref('rooms').once('value', snap => snap.forEach((room) => {
       fireRef.database().ref(`rooms/${room.key}/users/${socket.id}`).remove();
+      console.log(room.log);
     }));
   });
 });
