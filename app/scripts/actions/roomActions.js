@@ -16,7 +16,7 @@ export function getRooms() {
   };
 }
 
-export function addMessage(msg, roomKey, el) {
+export function addMessage(msg, roomKey) {
   return (dispatch, getState) => {
     const { socket, users } = getState();
     const { prefix } = users[socket.id];
