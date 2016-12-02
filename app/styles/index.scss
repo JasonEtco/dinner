@@ -7,6 +7,7 @@ html { background-color: $red; }
 
 body {
     min-height: 100vh;
+    overflow: hidden;
     background-color: $almost-white;
     font-family: $roboto;
 }

@@ -1,3 +1,5 @@
+/* eslint react/no-unescaped-entities: 0, react/style-prop-object: 0 */
+
 import React, { Component, PropTypes } from 'react';
 import h from '../../../utils/helpers';
 import { fireRef } from '../../../utils/store';
@@ -8,12 +10,14 @@ import { me } from '../../../actions/generalActions';
 import Input from '../../global/Input';
 import Button from '../../global/Button';
 import Room from '../Room';
+import RoomTile from '../RoomTile';
 import Table from '../Table';
 
 export default class App extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    rooms: PropTypes.array.isRequired,
     socket: PropTypes.object.isRequired,
   }
 
@@ -38,14 +42,20 @@ export default class App extends Component {
       joined: Date.now(),
       currentRoom: 'none',
       name: this.name.name.value,
-      prefix: h.rando(h.prefixes),
+      prefix: h.rando(Object.keys(h.prefixes)),
     };
 
     fireRef.database().ref(`users/${id}`).set(obj).then(() => dispatch(me(obj)));
   }
 
   render() {
-    const { users, socket } = this.props;
+    const { users, socket, rooms } = this.props;
+
+    if (Object.keys(users).length >= 6) {
+      return (
+        <h1>We're full!</h1>
+      );
+    }
 
     if (!users[socket.id]) {
       return (
@@ -62,9 +72,22 @@ export default class App extends Component {
     const { name, prefix, currentRoom } = users[socket.id];
 
     return (
-      <div style={{ height: '100%' }}>
-        <h1>Hi there {prefix} {name}!</h1>
-        <Table {...this.props} />
+      <div>
+        <h1 style={{ position: 'absolute' }}>Hi there {prefix} {name}!</h1>
+
+        <div className="rooms">
+          {Object.keys(rooms).map(key =>
+            <RoomTile
+              uid={socket.id}
+              key={key}
+              rooms={rooms}
+              users={rooms[key].users}
+              roomId={key}
+            />)}
+        </div>
+
+        <Table {...this.props} inConvo={users[socket.id].currentRoom !== 'none'} />
+
         <div className={`room-wrapper ${currentRoom !== 'none' ? 'in-room' : ''}`}>
           <Room {...this.props} currentRoom={parseInt(currentRoom, 10)} />
         </div>

@@ -32,6 +32,7 @@
     max-width: 500px;
     height: 100vh;
     transform: translateX(-100%);
+    transition: transform 200ms $standard;
 
     &.in-room {
         transform: translateX(0);

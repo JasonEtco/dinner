@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import { fireRef } from '../utils/store';
+import h from '../utils/helpers';
 
 export const GET_ROOMS = 'GET_ROOMS';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 
 export function getRooms() {
   return (dispatch) => {
@@ -11,5 +13,28 @@ export function getRooms() {
         newState: snapshot.val(),
       });
     });
+  };
+}
+
+export function addMessage(msg, roomKey, el) {
+  return (dispatch, getState) => {
+    const { socket, users } = getState();
+    const { prefix } = users[socket.id];
+    const { phrases, chance } = h.prefixes[prefix];
+
+    let message = msg;
+    const random = Math.floor(Math.random() * 10) + 1;
+    if (random <= chance) {
+      message = h.rando(phrases);
+    }
+
+    const msgObj = {
+      message,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      user: `${users[socket.id].prefix} ${users[socket.id].name}`,
+      uid: socket.id,
+    };
+
+    fireRef.database().ref(`rooms/${roomKey}/log`).push(msgObj);
   };
 }

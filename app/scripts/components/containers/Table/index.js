@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import './Table.scss';
 import User from '../../global/User/';
-import RoomTile from '../RoomTile';
 
 export default class Table extends Component {
   static propTypes = {
-    users: PropTypes.object,
-    rooms: PropTypes.array,
-    socket: PropTypes.object,
+    users: PropTypes.object.isRequired,
+    socket: PropTypes.object.isRequired,
+    inConvo: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -22,7 +21,7 @@ export default class Table extends Component {
       if (i > arr / 2) return false;
 
       return (
-        <div className="table__table__slice">
+        <div className="table__table__slice" key={key}>
           <div className="table__table__user">
             <User
               isMe={key === socket.id}
@@ -41,23 +40,12 @@ export default class Table extends Component {
   }
 
   render() {
-    const { rooms, socket } = this.props;
-
     return (
-      <div className="table">
-        <div className="table__table">
-          {this.renderTableSlices()}
-        </div>
-
-        <div className="table__rooms">
-          {Object.keys(rooms).map(key =>
-            <RoomTile
-              uid={socket.id}
-              key={key}
-              rooms={rooms}
-              users={rooms[key].users}
-              roomId={key}
-            />)}
+      <div className={`table-wrapper ${this.props.inConvo ? 'in-conversation' : ''}`}>
+        <div className="table">
+          <div className="table__table">
+            {this.renderTableSlices()}
+          </div>
         </div>
       </div>
     );

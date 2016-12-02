@@ -1,16 +1,89 @@
+@import '../../../../styles/variables';
+
 .table {
+    &-wrapper {
+        width: 100%;
+        height: 100vh;
+        transition: transform 200ms;
+
+        &::before {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms;
+        }
+
+        &.in-conversation {
+            transform: translateX(500px);
+
+            &::before { opacity: 0.5; }
+        }
+
+    }
+
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: 600px;
+    height: 260px;
+    transform: translate(-50%, -50%);
 
     &__table {
-        width: 50%;
-        min-width: 300px;
-        max-width: 600px;
-        height: 90vh;
-        background: red;
+        display: flex;
+        width: 100%;
+        border-radius: 1em;
+        flex-direction: column;
+        flex-wrap: wrap;
+        background: saddlebrown;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 102%;
+            height: 50%;
+            background-color: darkred;
+            transform: translate(-50%, -50%);
+        }
+
+        &__slice {
+            position: relative;
+            box-sizing: border-box;
+            height: 50%;
+            padding: 1em 0 0;
+            flex-grow: 2;
+
+            svg { width: 100%; }
+
+            &:nth-child(even) {
+                transform: rotate(180deg);
+
+                .user__tooltip {
+                    transform: translateX(-50%) rotate(180deg);
+
+                    &::before {
+                        top: 0;
+                        transform: translate(-50%, -100%);
+                        @include triangle(top, 6px, $dark-grey);
+                    }
+                }
+            }
+        }
+
+        &__user {
+            position: absolute;
+            top: -0.6em;
+            left: 50%;
+            transform: translate(-50%, -100%);
+        }
     }
 }

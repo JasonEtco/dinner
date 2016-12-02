@@ -1,16 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import firebase from 'firebase';
 import moment from 'moment';
+import { addMessage } from '../../../actions/roomActions';
 import { fireRef } from '../../../utils/store';
 import './Room.scss';
 
 
 export default class Room extends Component {
   static propTypes = {
-    users: PropTypes.object,
-    socket: PropTypes.object,
-    rooms: PropTypes.array,
-    currentRoom: PropTypes.number,
+    dispatch: PropTypes.func.isRequired,
+    socket: PropTypes.object.isRequired,
+    rooms: PropTypes.array.isRequired,
+    currentRoom: PropTypes.number.isRequired,
   }
 
   constructor(props) {
@@ -18,6 +18,10 @@ export default class Room extends Component {
     this.renderChatLog = this.renderChatLog.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLeave = this.handleLeave.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.room.scrollTop = this.room.scrollHeight;
   }
 
   handleLeave() {
@@ -29,14 +33,9 @@ export default class Room extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { currentRoom, users, socket } = this.props;
-
-    fireRef.database().ref(`rooms/${currentRoom}/log`).push({
-      message: this.message.value,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      user: `${users[socket.id].prefix} ${users[socket.id].name}`,
-      uid: socket.id,
-    }).then(() => this.message.value = null);
+    const { currentRoom, dispatch } = this.props;
+    dispatch(addMessage(this.message.value, currentRoom));
+    this.message.value = null;
   }
 
   renderChatLog() {
@@ -57,7 +56,7 @@ export default class Room extends Component {
 
   render() {
     return (
-      <div className="room">
+      <div className="room" ref={(r) => { this.room = r; }}>
         <button className="room__leave" onClick={this.handleLeave}>Leave</button>
         <div className="room__chatlog">
           {this.renderChatLog()}

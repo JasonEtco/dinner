@@ -8,24 +8,96 @@
     border-radius: 50%;
     background-color: blue;
 
+    &--me { background-color: orangered; }
+
     &__tooltip {
         position: absolute;
-        top: 1em;
-        left: 6em;
+        top: -70%;
+        left: 50%;
         white-space: pre;
         padding: 0.8em;
         border-radius: 3px;
         background: $dark-grey;
         color: white;
         font-size: 0.8rem;
+        transform: translateX(-50%);
 
         &::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            @include triangle(left, 6px, $dark-grey);
-            transform: translate(-100%, 100%);
+            bottom: 0;
+            left: 50%;
+            @include triangle(bottom, 6px, $dark-grey);
+            transform: translate(-50%, 100%);
         }
+    }
+
+    // Styles for specific prefixes
+
+    &--bothersome-cousin { background: linear-gradient(to bottom, #563a26 68%, #ffcd94 68%); }
+
+    &--uncle { background: linear-gradient(to bottom, grey 40%, #ffcd94 40%); }
+
+    &--dog {
+        background: radial-gradient(ellipse at bottom, black 8%, #fcd13a 10%, #fcd13a 11%);
+
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            width: 1.2em;
+            height: 3em;
+            border-radius: 1.2em;
+            background: brown;
+        }
+
+        &::before { transform: translate(-50%, 0) rotate(24deg); }
+
+        &::after { right: 0; transform: translate(55%, -5%) rotate(-30deg); }
+    }
+
+    &--french-only-grandmother {
+        background: linear-gradient(to bottom, grey 70%, #ffcd94 70%);
+
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            bottom: 1em;
+            width: 0.6em;
+            height: 0.6em;
+            border-radius: 50%;
+            border: 2px solid rgba(black, 0.8);
+            background-color: rgba(white, 0.5);
+        }
+
+        &::before { transform: translate(130%, 100%); }
+
+        &::after { right: 0; transform: translate(-130%, 100%); }
+    }
+
+    &--baby {
+        background: linear-gradient(to top, #ffcd94 40%, #2989d8 40%);
+
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0.6em;
+            height: 0.8em;
+            border-radius: 0.6em;
+            background: #2989d8;
+        }
+
+        &::before {
+            transform: translate(-50%, 0) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, 0) rotate(-45deg);
+        }
+    }
+
+    &--art-teacher-aunt {
+        background: linear-gradient(to top, #ffcd94 40%, #2989d8 40%, #2989d8 55%, #ff3030 55%, #ff3030 55%, #ff3030 71%, #48ff30 71%, #48ff30 87%, #f430ff 87%);
     }
 }
