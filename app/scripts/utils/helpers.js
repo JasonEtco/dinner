@@ -64,7 +64,7 @@ const helpers = {
       phrases: [
         'Can we go play Wii now?',
         'I\'m bored.',
-        'I\'M TELLING MY DAD YOU SAID',
+        'I\'M TELLING MY DAD YOU SAID THAT',
       ],
     },
   },
