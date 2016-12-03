@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
+import classnames from 'classnames';
 import { addMessage } from '../../../actions/roomActions';
-import { fireRef } from '../../../utils/store';
 import './Room.scss';
 
 
@@ -10,29 +10,33 @@ export default class Room extends Component {
     dispatch: PropTypes.func.isRequired,
     socket: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
-    currentRoom: PropTypes.number.isRequired,
+    handleLeaveRoom: PropTypes.func.isRequired,
+    currentRoom: PropTypes.oneOfType([
+      PropTypes.oneOf(['none']),
+      PropTypes.number,
+    ]).isRequired,
   }
 
   constructor(props) {
     super(props);
     this.renderChatLog = this.renderChatLog.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLeave = this.handleLeave.bind(this);
   }
 
   componentDidUpdate() {
-    this.room.scrollTop = this.room.scrollHeight;
-  }
+    if (this.props.currentRoom === 'none') {
+      this.message.value = null;
+    } else {
+      this.room.scrollTop = this.room.scrollHeight;
+      this.message.focus();
+    }
 
-  handleLeave() {
-    const { currentRoom, socket } = this.props;
-
-    fireRef.database().ref(`users/${socket.id}`).update({ currentRoom: 'none' });
-    fireRef.database().ref(`rooms/${currentRoom}/users/${socket.id}`).remove();
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.message.value === '') return;
+
     const { currentRoom, dispatch } = this.props;
     dispatch(addMessage(this.message.value, currentRoom));
     this.message.value = null;
@@ -44,20 +48,30 @@ export default class Room extends Component {
 
     const log = rooms[currentRoom].log || [];
 
-    return Object.keys(log).map(key =>
-      <div className={`room__message ${log[key].uid === socket.id ? 'is-me' : ''}`} key={key}>
-        <span className="room__message__message">{log[key].message}</span>
-        <div className="room__message__meta">
-          <span>{moment(log[key].timestamp).fromNow()}</span>
-          <span>{log[key].user}</span>
+    return Object.keys(log).map((key, i, arr) => {
+      const classes = classnames(
+        'room__message',
+        { 'is-me': log[key].uid === socket.id },
+        { 'is-same': arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user },
+      );
+
+      return (
+        <div className={classes} key={key}>
+          <span className="room__message__message">{log[key].message}</span>
+          <div className="room__message__meta">
+            <span>{moment(log[key].timestamp).fromNow()}</span>
+            <span>{log[key].user}</span>
+          </div>
         </div>
-      </div>);
+      );
+    });
   }
 
   render() {
+    const { currentRoom, handleLeaveRoom } = this.props;
     return (
       <div className="room" ref={(r) => { this.room = r; }}>
-        <button className="room__leave" onClick={this.handleLeave}>Leave</button>
+        <button className="room__leave" onClick={handleLeaveRoom} style={{ display: currentRoom === 'none' ? 'none' : null }}>Leave Room</button>
         <div className="room__chatlog">
           {this.renderChatLog()}
         </div>

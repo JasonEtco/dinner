@@ -24,17 +24,20 @@
     }
 }
 
-.room-wrapper {
+.overlay {
     position: absolute;
+    z-index: 2;
     top: 0;
     left: 0;
-    width: 50%;
-    max-width: 500px;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: transform 200ms $standard;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms;
 
-    &.in-room {
-        transform: translateX(0);
+    &.is-active {
+        pointer-events: initial;
+        opacity: 0.5;
     }
 }

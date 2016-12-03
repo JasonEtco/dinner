@@ -24,6 +24,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
     this.state = { loading: true };
   }
 
@@ -46,6 +47,14 @@ export default class App extends Component {
     };
 
     fireRef.database().ref(`users/${id}`).set(obj).then(() => dispatch(me(obj)));
+  }
+
+  handleLeaveRoom() {
+    const { users, socket } = this.props;
+    const { currentRoom } = users[socket.id];
+
+    fireRef.database().ref(`users/${socket.id}`).update({ currentRoom: 'none' });
+    fireRef.database().ref(`rooms/${currentRoom}/users/${socket.id}`).remove();
   }
 
   render() {
@@ -81,7 +90,13 @@ export default class App extends Component {
 
     return (
       <div>
-        <h1 style={{ position: 'absolute' }}>Hi there {prefix} {name}!</h1>
+        <h1
+          style={{
+            position: 'absolute',
+            width: '100%',
+            textAlign: 'center',
+          }}
+        >Hi there {prefix} {name}!</h1>
 
         <div className="rooms">
           {Object.keys(rooms).map(key =>
@@ -97,8 +112,15 @@ export default class App extends Component {
         <Table {...this.props} inConvo={users[socket.id].currentRoom !== 'none'} />
 
         <div className={`room-wrapper ${currentRoom !== 'none' ? 'in-room' : ''}`}>
-          <Room {...this.props} currentRoom={parseInt(currentRoom, 10)} />
+          <Room
+            {...this.props}
+            currentRoom={isNaN(currentRoom) ? currentRoom : parseInt(currentRoom, 10)}
+            ref={(r) => { this.room = r; }}
+            handleLeaveRoom={this.handleLeaveRoom}
+          />
         </div>
+
+        <div className={`overlay ${currentRoom !== 'none' ? 'is-active' : ''}`} onClick={this.handleLeaveRoom} />
       </div>
     );
   }
