@@ -1,8 +1,14 @@
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
+
 import React, { Component, PropTypes } from 'react';
 import './EmojiPicker.scss';
 import emojis from './emojis';
 
-class EmojiPicker extends Component {
+export default class EmojiPicker extends Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
     this.setEmoji = this.setEmoji.bind(this);
@@ -80,9 +86,3 @@ class EmojiPicker extends Component {
     );
   }
 }
-
-EmojiPicker.propTypes = {
-  onClick: PropTypes.func,
-};
-
-export default EmojiPicker;
