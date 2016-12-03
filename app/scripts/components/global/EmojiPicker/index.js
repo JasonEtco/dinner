@@ -56,7 +56,7 @@ class EmojiPicker extends Component {
 
     return results.map(e =>
       <li className={`emj__emoji ${emoji === emojis[e] ? 'is-active' : ''}`} key={e}>
-        <button onClick={() => this.setEmoji(emojis[e])}>{emojis[e]}</button>
+        <button type="button" onClick={() => this.setEmoji(emojis[e])}>{emojis[e]}</button>
       </li>);
   }
 
@@ -65,7 +65,7 @@ class EmojiPicker extends Component {
 
     return (
       <div className="emj">
-        <button className="emj__btn" onClick={this.togglePicker}>😁</button>
+        <button type="button" className="emj__btn" onClick={this.togglePicker}>😁</button>
         <div className={`emj__wrapper ${isOpen ? 'is-open' : ''}`} onClick={e => e.stopPropagation()}>
           <input onChange={this.updateSearch} type="text" className="emj__search" ref={(r) => { this.search = r; }} />
           <ul className="emj__list">
