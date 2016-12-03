@@ -1,4 +1,9 @@
-/* eslint react/no-unescaped-entities: 0, react/style-prop-object: 0 */
+/*
+  eslint
+  react/no-unescaped-entities: 0,
+  react/style-prop-object: 0
+  jsx-a11y/no-static-element-interactions: 0
+*/
 
 import React, { Component, PropTypes } from 'react';
 import h from '../../../utils/helpers';
