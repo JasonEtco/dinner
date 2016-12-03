@@ -46,6 +46,11 @@
             border-radius: 1em;
             background: $almost-white;
             font-size: 0.8rem;
+
+            &.is-emoji {
+                padding: 0.8rem;
+                font-size: 2rem;
+            }
         }
 
         &__meta {

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import classnames from 'classnames';
 import { addMessage } from '../../../actions/roomActions';
+import h from '../../../utils/helpers';
 import './Room.scss';
 
 
@@ -54,12 +55,15 @@ export default class Room extends Component {
         { 'is-same': arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user },
       );
 
+      const { message, timestamp, user } = log[key];
+      console.log(message, message.length);
+
       return (
         <div className={classes} key={key}>
-          <span className="room__message__message">{log[key].message}</span>
+          <span className={`room__message__message ${h.isEmoji(message) ? 'is-emoji' : ''}`}>{message}</span>
           <div className="room__message__meta">
-            <span>{moment(log[key].timestamp).fromNow()}</span>
-            <span>{log[key].user}</span>
+            <span>{moment(timestamp).fromNow()}</span>
+            <span>{user}</span>
           </div>
         </div>
       );
