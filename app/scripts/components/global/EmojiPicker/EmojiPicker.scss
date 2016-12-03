@@ -12,36 +12,50 @@
     &__wrapper {
         position: absolute;
         top: 2em;
-        left: 50%;
+        left: 0;
         box-sizing: border-box;
         width: 300px;
         height: 300px;
         padding: 1em;
-        box-shadow: 0 2px 4px rgba(black, 0.2);
+        box-shadow: 0 2px 6px rgba(black, 0.4);
         border-radius: 3px;
         background: white;
         pointer-events: none;
         opacity: 0;
-        transform: translate(-50%, -10px);
+        transform: translate(-100%, -100%);
         transition: opacity 150ms, transform 200ms;
 
         &.is-open {
             pointer-events: initial;
             opacity: 1;
-            transform: translate(-50%, 0);
+            transform: translate(calc(-100% - 10px), -100%);
         }
 
         &::before {
             content: '';
             position: absolute;
-            top: -12px;
-            left: calc(50% - 6px);
+            z-index: 2;
+            right: -12px;
+            bottom: 12px;
             width: 0;
             height: 0;
             border-width: 6px;
             border-style: solid;
             border-color: transparent;
-            border-bottom-color: white;
+            border-left-color:white;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: -14px;
+            bottom: 11px;
+            width: 0;
+            height: 0;
+            border-width: 7px;
+            border-style: solid;
+            border-color: transparent;
+            border-left-color: rgba(black, 0.3);
         }
     }
 
@@ -53,12 +67,13 @@
         border-radius: 3px;
         margin-bottom: 0.4em;
         background: white;
+        font-size: 0.8rem;
     }
 
     &__list {
         display: flex;
         overflow: auto;
-        height: calc(100% - 2em);
+        height: calc(100% - 2.5em);
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -66,10 +81,13 @@
 
         &::-webkit-scrollbar { width: 6px; }
 
-        &::-webkit-scrollbar-track { background-color: lightgrey; }
+        &::-webkit-scrollbar-track {
+            border-radius: 3px;
+            background-color: lightgrey;
+        }
 
         &::-webkit-scrollbar-thumb {
-            border-radius: 6px / 2;
+            border-radius: 3px;
             background-color: grey;
         }
     }

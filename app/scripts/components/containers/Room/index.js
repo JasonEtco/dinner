@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { addMessage } from '../../../actions/roomActions';
 import h from '../../../utils/helpers';
 import './Room.scss';
+import EmojiPicker from '../../global/EmojiPicker';
 
 
 export default class Room extends Component {
@@ -80,6 +81,7 @@ export default class Room extends Component {
         </div>
         <form onSubmit={this.handleSubmit} className="room__form">
           <input type="text" name="message" placeholder="Write a message..." ref={(r) => { this.message = r; }} />
+          <EmojiPicker />
         </form>
       </div>
     );
