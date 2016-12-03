@@ -48,6 +48,7 @@ const helpers = {
         'Arf! Arf! Food!',
         'I just pooped in that lady\'s purse. SQUIRREL?',
         '🐶',
+        'BORK BORK BORK',
       ],
     },
     'French-Only Grandmother': {
