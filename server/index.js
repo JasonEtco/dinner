@@ -27,15 +27,25 @@ const io = require('socket.io')(http);
 
 app.use(compression());
 
+const rooms = fireRef.database().ref('rooms');
+
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     fireRef.database().ref(`users/${socket.id}`).remove();
-    fireRef.database().ref('rooms').once('value', snap => snap.forEach((room) => {
+
+    rooms.once('value', snap => snap.forEach((room) => {
       fireRef.database().ref(`rooms/${room.key}/users/${socket.id}`).remove();
-      console.log(room.log);
     }));
   });
 });
+
+rooms.once('value', snap => snap.forEach((room) => {
+  fireRef.database().ref(`rooms/${room.key}/users`).on('child_removed', () => {
+    fireRef.database().ref(`rooms/${room.key}/users`).once('value', (snapshot) => {
+      if (snapshot.val() === null) fireRef.database().ref(`rooms/${room.key}/log`).remove();
+    });
+  });
+}));
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 4000 : process.env.PORT;
