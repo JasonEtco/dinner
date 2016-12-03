@@ -65,12 +65,6 @@ export default class App extends Component {
   render() {
     const { users, socket, rooms } = this.props;
 
-    if (Object.keys(users).length >= 6) {
-      return (
-        <h1>We're full!</h1>
-      );
-    }
-
     if (!users[socket.id]) {
       return (
         <div className="app">
