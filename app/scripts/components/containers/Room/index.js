@@ -30,7 +30,6 @@ export default class Room extends Component {
       this.room.scrollTop = this.room.scrollHeight;
       this.message.focus();
     }
-
   }
 
   handleSubmit(e) {
