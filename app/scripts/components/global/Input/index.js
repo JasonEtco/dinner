@@ -1,7 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import './Input.scss';
 
-class Input extends Component {
+export default class Input extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    full: PropTypes.bool,
+    autofocus: PropTypes.bool,
+    required: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    max: PropTypes.number,
+  };
+
   render() {
     const { name, placeholder, label, full, autofocus, required, max } = this.props;
 
@@ -22,15 +32,3 @@ class Input extends Component {
     );
   }
 }
-
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  full: PropTypes.bool,
-  autofocus: PropTypes.bool,
-  required: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  max: PropTypes.number,
-};
-
-export default Input;
