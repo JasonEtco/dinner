@@ -9,8 +9,10 @@ body {
     min-height: 100vh;
     overflow: hidden;
     background-color: $almost-white;
-    font-family: $roboto;
+    // font-family: $roboto;
+    font-family: $systemdefault;
 }
 
-h1, h2, h3, h4 { margin: 0; font-family: $circular; }
+// h1, h2, h3, h4 { margin: 0; font-family: $circular; }
 button { font-size: inherit; font-family: inherit; cursor: pointer; }
+input { font-family: inherit; }
