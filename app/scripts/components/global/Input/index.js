@@ -10,7 +10,7 @@ class Input extends Component {
         <label className="input__label" htmlFor={`inp-${name}`}>{label}</label>
         <input
           type="text"
-          max={max}
+          maxLength={max}
           className="input__input"
           id={`inp-${name}`}
           placeholder={placeholder}
