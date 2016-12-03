@@ -14,18 +14,16 @@ class EmojiPicker extends Component {
     this.state = { isOpen: false, emoji: null, search: '' };
   }
 
-  componentDidMount() {
-    window.addEventListener('click', this.hidePicker);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('click', this.hidePicker);
-  }
+  componentDidMount() { window.addEventListener('click', this.hidePicker); }
+  componentWillUnmount() { window.removeEventListener('click', this.hidePicker); }
 
   setEmoji(emoji) {
     if (this.props.onClick) {
       this.props.onClick(emoji);
+      this.hidePicker();
+    } else {
+      this.setState({ emoji });
     }
-    this.setState({ emoji });
   }
 
   togglePicker(e) {
@@ -67,7 +65,13 @@ class EmojiPicker extends Component {
       <div className="emj">
         <button type="button" className="emj__btn" onClick={this.togglePicker}>😁</button>
         <div className={`emj__wrapper ${isOpen ? 'is-open' : ''}`} onClick={e => e.stopPropagation()}>
-          <input onChange={this.updateSearch} type="text" className="emj__search" ref={(r) => { this.search = r; }} />
+          <input
+            onChange={this.updateSearch}
+            type="text"
+            className="emj__search"
+            ref={(r) => { this.search = r; }}
+            name="emj"
+          />
           <ul className="emj__list">
             {this.renderEmojis()}
           </ul>

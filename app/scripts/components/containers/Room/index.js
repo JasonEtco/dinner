@@ -22,6 +22,7 @@ export default class Room extends Component {
   constructor(props) {
     super(props);
     this.renderChatLog = this.renderChatLog.bind(this);
+    this.handleEmojiPick = this.handleEmojiPick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -34,9 +35,14 @@ export default class Room extends Component {
     }
   }
 
+  handleEmojiPick(str) {
+    this.message.value = this.message.value + str;
+    this.message.focus();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    if (this.message.value === '') return;
+    if (this.message.value === '' || !/\S/.test(this.message.value)) return;
 
     const { currentRoom, dispatch } = this.props;
     dispatch(addMessage(this.message.value, currentRoom));
@@ -57,7 +63,6 @@ export default class Room extends Component {
       );
 
       const { message, timestamp, user } = log[key];
-      console.log(message, message.length);
 
       return (
         <div className={classes} key={key}>
@@ -79,10 +84,13 @@ export default class Room extends Component {
         <div className="room__chatlog">
           {this.renderChatLog()}
         </div>
-        <form onSubmit={this.handleSubmit} className="room__form">
-          <input type="text" name="message" placeholder="Write a message..." ref={(r) => { this.message = r; }} />
-          <EmojiPicker />
-        </form>
+
+        <div className="room__form-wrapper">
+          <form onSubmit={this.handleSubmit} className="room__form">
+            <input type="text" name="message" placeholder="Write a message..." ref={(r) => { this.message = r; }} />
+          </form>
+          <EmojiPicker onClick={this.handleEmojiPick} />
+        </div>
       </div>
     );
   }

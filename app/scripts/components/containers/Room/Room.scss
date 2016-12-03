@@ -117,15 +117,23 @@
     }
 
     &__form {
-        display: flex;
-        padding: 2em;
-        border-top: 2px solid gray;
-        background: white;
+        margin-right: 0.6em;
+        flex-grow: 2;
 
-        input {
-            box-sizing: border-box;
-            padding: 1em;
-            flex-grow: 2;
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 2em;
+            border-top: 2px solid gray;
+            background: white;
+
+            input {
+                box-sizing: border-box;
+                width: 100%;
+                padding: 1em;
+                border: 1px solid $grey;
+                border-radius: 3px;
+            }
         }
     }
 }
