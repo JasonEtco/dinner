@@ -9,7 +9,10 @@ import './styles/index.scss';
 
 export default function mapStateToProps(state) {
   return {
-    ...state,
+    socket: state.socket,
+    general: state.general,
+    users: state.users,
+    rooms: state.rooms,
   };
 }
 

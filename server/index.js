@@ -29,19 +29,30 @@ app.use(compression());
 
 const rooms = fireRef.database().ref('rooms');
 
+let full = false;
+
 io.on('connection', (socket) => {
+  // Test if the table is full (6 people)
+  fireRef.database().ref('users').once('value', (snap) => {
+    if (snap.val() !== null && Object.keys(snap.val()).length >= 6) full = true;
+  });
+
+  // Remove user data on disconnect
   socket.on('disconnect', () => {
     fireRef.database().ref(`users/${socket.id}`).remove();
 
+    // Make sure to remove disconnected user from the room
     rooms.once('value', snap => snap.forEach((room) => {
       fireRef.database().ref(`rooms/${room.key}/users/${socket.id}`).remove();
     }));
   });
 });
 
+// Clear the chat log for any room with zero users in it
 rooms.once('value', snap => snap.forEach((room) => {
-  fireRef.database().ref(`rooms/${room.key}/users`).on('child_removed', () => {
-    fireRef.database().ref(`rooms/${room.key}/users`).once('value', (snapshot) => {
+  const usersRef = fireRef.database().ref(`rooms/${room.key}/users`);
+  usersRef.on('child_removed', () => {
+    usersRef.once('value', (snapshot) => {
       if (snapshot.val() === null) fireRef.database().ref(`rooms/${room.key}/log`).remove();
     });
   });
@@ -68,15 +79,23 @@ if (isDeveloping) {
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
 
-  app.get('*', (req, res) => {
-    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')));
-    res.end();
+  app.get('/', (req, res) => {
+    if (full) {
+      res.write('Table\'s Full!');
+    } else {
+      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')));
+      res.end();
+    }
   });
 } else {
   app.use(express.static(__dirname));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+  app.get('/', (req, res) => {
+    if (full) {
+      res.write('Table\'s Full!');
+    } else {
+      res.sendFile(path.join(__dirname, 'index.html'));
+    }
   });
 }
 
