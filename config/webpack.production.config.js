@@ -47,6 +47,7 @@ module.exports = {
       loader: 'babel',
       query: {
         presets: ['es2015', 'stage-0', 'react'],
+        plugins: ['transform-runtime'],
       },
     }, {
       test: /\.json/,

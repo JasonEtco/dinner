@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import classnames from 'classnames';
-import { addMessage } from '../../../actions/roomActions';
+import { addMessage, leaveRoom } from '../../../actions/roomActions';
 import h from '../../../utils/helpers';
 import './Room.scss';
 import EmojiPicker from '../../global/EmojiPicker';
@@ -12,7 +12,6 @@ export default class Room extends Component {
     dispatch: PropTypes.func.isRequired,
     socket: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
-    handleLeaveRoom: PropTypes.func.isRequired,
     currentRoom: PropTypes.oneOfType([
       PropTypes.oneOf(['none']),
       PropTypes.number,
@@ -77,10 +76,10 @@ export default class Room extends Component {
   }
 
   render() {
-    const { currentRoom, handleLeaveRoom } = this.props;
+    const { currentRoom, dispatch } = this.props;
     return (
       <div className="room" ref={(r) => { this.room = r; }}>
-        <button className="room__leave" onClick={handleLeaveRoom} style={{ display: currentRoom === 'none' ? 'none' : null }}>Leave Room</button>
+        <button className="room__leave" onClick={() => dispatch(leaveRoom())} style={{ display: currentRoom === 'none' ? 'none' : null }}>Leave Room</button>
         <div className="room__chatlog">
           {this.renderChatLog()}
         </div>

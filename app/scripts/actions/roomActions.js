@@ -21,25 +21,44 @@ export function joinRoom(roomId, uid) {
   fireRef.database().ref(`users/${uid}`).update({ currentRoom: parseInt(roomId, 10) });
 }
 
+export function leaveRoom(roomId) {
+  return (dispatch, getState) => {
+    const { users, socket } = getState();
+    const { currentRoom } = users[socket.id];
+
+    fireRef.database().ref(`users/${socket.id}`).update({ currentRoom: 'none' });
+    fireRef.database().ref(`rooms/${roomId || currentRoom}/users/${socket.id}`).remove();
+  };
+}
+
+async function setMessage(prefix, msg) {
+  switch (prefix) {
+    case 'French-Only Grandmother':
+      // Translate the message to French using Yandex translator API
+      return await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161207T190709Z.296d4a2b078f8029.dfcb3d0f14515b43fc144c059e2af26f98bd74b9&text=${encodeURI(msg)}&lang=en-fr`)
+        .then(res => res.json())
+        .then(json => json.text[0]);
+    default:
+      return msg;
+  }
+}
+
 export function addMessage(msg, roomKey) {
   return (dispatch, getState) => {
     const { socket, users } = getState();
     const { prefix } = users[socket.id];
     const { phrases, chance } = h.prefixes[prefix];
 
-    let message = msg;
-    const random = Math.floor(Math.random() * 10) + 1;
-    if (random <= chance) {
-      message = h.rando(phrases);
-    }
+    setMessage(prefix, msg).then((message) => {
+      const random = Math.floor(Math.random() * 10) + 1;
+      const msgObj = {
+        message: random <= chance ? h.rando(phrases) : message,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+        user: `${users[socket.id].prefix} ${users[socket.id].name}`,
+        uid: socket.id,
+      };
 
-    const msgObj = {
-      message,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      user: `${users[socket.id].prefix} ${users[socket.id].name}`,
-      uid: socket.id,
-    };
-
-    fireRef.database().ref(`rooms/${roomKey}/log`).push(msgObj);
+      fireRef.database().ref(`rooms/${roomKey}/log`).push(msgObj);
+    });
   };
 }

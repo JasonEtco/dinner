@@ -32,25 +32,25 @@ const helpers = {
     //     'Example',
     //   ],
     // },
-    Baby: {
-      chance: 10,
-      phrases: [
-        'Goo goo! Gagagaga!',
-        'WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        '👶',
-        '🍼',
-        '👼',
-      ],
-    },
-    Dog: {
-      chance: 10,
-      phrases: [
-        'Arf! Arf! Food!',
-        'I just pooped in that lady\'s purse. SQUIRREL?',
-        '🐶',
-        'BORK BORK BORK',
-      ],
-    },
+    // Baby: {
+    //   chance: 10,
+    //   phrases: [
+    //     'Goo goo! Gagagaga!',
+    //     'WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    //     '👶',
+    //     '🍼',
+    //     '👼',
+    //   ],
+    // },
+    // Dog: {
+    //   chance: 10,
+    //   phrases: [
+    //     'Arf! Arf! Food!',
+    //     'I just pooped in that lady\'s purse. SQUIRREL?',
+    //     '🐶',
+    //     'BORK BORK BORK',
+    //   ],
+    // },
     'French-Only Grandmother': {
       chance: 3,
       phrases: [

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { joinRoom } from '../../../actions/roomActions';
+import { joinRoom, leaveRoom } from '../../../actions/roomActions';
 import './Table.scss';
 import User from '../../global/User/';
 
@@ -9,7 +9,7 @@ export default class Table extends Component {
     rooms: PropTypes.array.isRequired,
     socket: PropTypes.object.isRequired,
     inConvo: PropTypes.bool.isRequired,
-    handleLeaveRoom: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -26,7 +26,7 @@ export default class Table extends Component {
     if (prefix === 'Dog') {
       this.timer = setTimeout(() => {
         if (currentRoom !== 'none') {
-          this.props.handleLeaveRoom(currentRoom);
+          this.props.dispatch(leaveRoom(currentRoom));
         } else {
           joinRoom(Math.floor(Math.random() * rooms.length), socket.id);
         }

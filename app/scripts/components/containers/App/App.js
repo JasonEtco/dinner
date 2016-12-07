@@ -29,7 +29,6 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLeaveRoom = this.handleLeaveRoom.bind(this);
     this.state = { loading: true };
   }
 
@@ -52,14 +51,6 @@ export default class App extends Component {
     };
 
     fireRef.database().ref(`users/${id}`).set(obj).then(() => dispatch(me(obj)));
-  }
-
-  handleLeaveRoom(roomId) {
-    const { users, socket } = this.props;
-    const { currentRoom } = users[socket.id];
-
-    fireRef.database().ref(`users/${socket.id}`).update({ currentRoom: 'none' });
-    fireRef.database().ref(`rooms/${roomId || currentRoom}/users/${socket.id}`).remove();
   }
 
   render() {
@@ -108,14 +99,13 @@ export default class App extends Component {
             />)}
         </div>
 
-        <Table {...this.props} handleLeaveRoom={this.handleLeaveRoom} inConvo={users[socket.id].currentRoom !== 'none'} />
+        <Table {...this.props} inConvo={users[socket.id].currentRoom !== 'none'} />
 
         <div className={`room-wrapper ${currentRoom !== 'none' ? 'in-room' : ''}`}>
           <Room
             {...this.props}
             currentRoom={isNaN(currentRoom) ? currentRoom : parseInt(currentRoom, 10)}
             ref={(r) => { this.room = r; }}
-            handleLeaveRoom={this.handleLeaveRoom}
           />
         </div>
 

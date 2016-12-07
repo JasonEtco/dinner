@@ -47,6 +47,7 @@ module.exports = {
           'stage-0',
           'react-hmre',
         ],
+        plugins: ['transform-runtime'],
       },
     }, {
       test: /\.scss$/,
