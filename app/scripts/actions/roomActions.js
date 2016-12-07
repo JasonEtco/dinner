@@ -16,6 +16,11 @@ export function getRooms() {
   };
 }
 
+export function joinRoom(roomId, uid) {
+  fireRef.database().ref(`rooms/${roomId}/users/${uid}`).set({ joined: firebase.database.ServerValue.TIMESTAMP });
+  fireRef.database().ref(`users/${uid}`).update({ currentRoom: parseInt(roomId, 10) });
+}
+
 export function addMessage(msg, roomKey) {
   return (dispatch, getState) => {
     const { socket, users } = getState();

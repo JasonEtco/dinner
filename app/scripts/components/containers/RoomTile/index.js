@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import firebase from 'firebase';
-import { fireRef } from '../../../utils/store';
+import { joinRoom } from '../../../actions/roomActions';
 import './RoomTile.scss';
 
 export default class RoomTile extends Component {
@@ -16,9 +15,7 @@ export default class RoomTile extends Component {
   }
 
   enterRoom() {
-    const { roomId, uid } = this.props;
-    fireRef.database().ref(`rooms/${roomId}/users/${uid}`).set({ joined: firebase.database.ServerValue.TIMESTAMP });
-    fireRef.database().ref(`users/${uid}`).update({ currentRoom: parseInt(roomId, 10) });
+    joinRoom(this.props.roomId, this.props.uid);
   }
 
   render() {
