@@ -33,7 +33,7 @@
 
     // Styles for specific prefixes
 
-    &--bothersome-cousin { background: linear-gradient(to bottom, #563a26 68%, #ffcd94 68%); }
+    &--bothersome-cousin, &--random-family-friend { background: linear-gradient(to bottom, #563a26 68%, #ffcd94 68%); }
 
     &--crazy-uncle { background: linear-gradient(to bottom, grey 40%, #ffcd94 40%); }
 
