@@ -1,7 +1,5 @@
-@import './reset';
 @import './circular';
-@import './variables';
-@import './animations';
+@import './tools/tools';
 
 html { background-color: $red; }
 

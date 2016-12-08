@@ -53,6 +53,7 @@ export default class Table extends Component {
               id={key}
               name={users[key].name}
               prefix={users[key].prefix}
+              tooltip={true}
             />
           </div>
           <div className="table__table__slice__plate">

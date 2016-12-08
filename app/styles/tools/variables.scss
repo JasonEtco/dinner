@@ -1,0 +1,30 @@
+/* stylelint-disable */
+
+@import './mixins';
+
+$circular: 'Circular Std', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$systemdefault: -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen, ubuntu, cantarell, 'fira sans', 'droid sans', 'helvetica neue', sans-serif;
+
+$red: #f65050;
+$almost-white: darken(white, 5%);
+$grey: lighten(black, 70%);
+$dark-grey: lighten(black, 20%);
+$blue: #0882fd;
+
+$standard: cubic-bezier(0.4, 0, 0.2, 1);
+$enter: cubic-bezier(0, 0, 0.2, 1);
+$exit: cubic-bezier(0.4, 0, 1, 1);
+$bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$bounce-less: cubic-bezier(0.12, 0.85, 0.3, 1.1);
+
+%card {
+    box-sizing: border-box;
+    padding: 2em;
+    border: 1px solid darken($almost-white, 5%);
+    border-radius: 4px;
+    background: white;
+    @include box-shadow(1);
+    transition: box-shadow 150ms $standard;
+    will-change: box-shadow;
+}

@@ -7,14 +7,15 @@ export default class User extends Component {
     name: PropTypes.string.isRequired,
     prefix: PropTypes.string.isRequired,
     isMe: PropTypes.bool.isRequired,
+    tooltip: PropTypes.bool.isRequired,
   }
 
   render() {
-    const { name, prefix, isMe } = this.props;
+    const { name, prefix, isMe, tooltip } = this.props;
 
     return (
       <div className={`user ${isMe ? 'user--me' : ''} user--${h.slugify(prefix)}`}>
-        <span className="user__tooltip">{prefix} {name}</span>
+        {tooltip && <span className="user__tooltip">{prefix} {name}</span>}
       </div>
     );
   }

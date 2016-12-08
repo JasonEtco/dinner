@@ -94,7 +94,8 @@ export default class App extends Component {
               uid={socket.id}
               key={key}
               rooms={rooms}
-              users={rooms[key].users}
+              roomUsers={rooms[key].users}
+              users={users}
               roomId={key}
             />)}
         </div>

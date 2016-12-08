@@ -1,4 +1,4 @@
-@import '../../../../styles/variables';
+@import '../../../../styles/tools/tools';
 
 .user {
     position: relative;
@@ -44,9 +44,9 @@
         &::before, &::after {
             content: '';
             position: absolute;
-            width: 1.2em;
-            height: 3em;
-            border-radius: 1.2em;
+            width: 29%;
+            height: 75%;
+            border-radius: 29%;
             background: brown;
         }
 
@@ -61,17 +61,17 @@
         &::before, &::after {
             content: '';
             position: absolute;
-            bottom: 1em;
-            width: 0.6em;
-            height: 0.6em;
+            bottom: 10%;
+            width: 13%;
+            height: 13%;
             border-radius: 50%;
             border: 2px solid rgba(black, 0.8);
             background-color: rgba(white, 0.5);
         }
 
-        &::before { transform: translate(130%, 100%); }
+        &::before { left: 25%; }
 
-        &::after { right: 0; transform: translate(-130%, 100%); }
+        &::after { right: 25%; }
     }
 
     &--baby {
@@ -82,9 +82,9 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            width: 0.6em;
-            height: 0.8em;
-            border-radius: 0.6em;
+            width: 13%;
+            height: 17%;
+            border-radius: 13%;
             background: #2989d8;
         }
 
