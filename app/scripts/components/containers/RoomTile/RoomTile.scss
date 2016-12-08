@@ -41,6 +41,7 @@
 
             &--conservative-dad {
                 &::before { border-width: 2px; }
+
                 &::after { border-width: 4px; }
             }
         }
