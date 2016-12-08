@@ -38,6 +38,30 @@
 
     &--crazy-uncle { background: linear-gradient(to bottom, grey 40%, #ffcd94 40%); }
 
+    &--conservative-dad {
+        overflow: hidden;
+        background: linear-gradient(to bottom, grey 40%, #ffcd94 40%, #ffcd94 80%, black 80%);
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 1px;
+            left: 50%;
+            background-color: white;
+            transform: translateX(-50%);
+            @include triangle(bottom, 6px, red);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleY(2);
+            @include triangle(top, 8px, red);
+        }
+    }
+
     &--dog {
         background: radial-gradient(ellipse at bottom, black 8%, #fcd13a 10%, #fcd13a 11%);
 
