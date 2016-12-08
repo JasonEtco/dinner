@@ -4,7 +4,7 @@
     position: fixed;
     z-index: 2;
     top: 2em;
-    left: 1em;
+    left: 2em;
 }
 
 .room-tile {
@@ -17,7 +17,7 @@
     transition: background 150ms $standard;
     @include on-circle($item-count: 1, $circle-size: 6em, $item-size: 2em);
 
-    + & { margin-top: 1em; }
+    & + & { margin-top: 1em; }
 
     &:hover { background: lighten(saddlebrown, 10%); }
 
