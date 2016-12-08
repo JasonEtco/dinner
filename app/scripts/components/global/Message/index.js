@@ -19,8 +19,8 @@ export default class Message extends Component {
     const { isMe, isSame, isEmoji, timestamp, user, message, prefix } = this.props;
 
     const classes = classnames(
-        'room__message',
-        `room__message--${h.slugify(prefix)}`,
+        'message',
+        `message--${h.slugify(prefix)}`,
         { 'is-me': isMe },
         { 'is-same': isSame },
         { 'is-emoji': isEmoji },
@@ -28,8 +28,8 @@ export default class Message extends Component {
 
     return (
       <div className={classes}>
-        <span className="room__message__message">{message}</span>
-        {!isSame && <div className="room__message__meta">
+        <span className="message__message">{message}</span>
+        {!isSame && <div className="message__meta">
           <span>{moment(timestamp).fromNow()}</span>
           <span>{user}</span>
         </div>}

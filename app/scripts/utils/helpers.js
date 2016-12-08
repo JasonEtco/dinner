@@ -5,6 +5,10 @@ const helpers = {
     }
     return true;
   },
+  takeWhile(arr, f) {
+    let ok = true;
+    return arr.filter(e => ok && (ok = f(e)));
+  },
   prefixes: {
     // Uncle: {
     //   chance: 3,
@@ -20,13 +24,13 @@ const helpers = {
     //     'Let me tell you about your mom when she was a kid...',
     //   ],
     // },
-    // 'Art teacher Aunt': {
-    //   chance: 3,
-    //   phrases: [
-    //     'The world is a maaagical place',
-    //     'Make love not war man',
-    //   ],
-    // },
+    'Art teacher Aunt': {
+      chance: 3,
+      phrases: [
+        'The world is a maaagical place',
+        'Make love not war man',
+      ],
+    },
     // 'Conservative Dad': {
     //   chance: 3,
     //   phrases: [
@@ -55,13 +59,13 @@ const helpers = {
     //     'BORK BORK BORK',
     //   ],
     // },
-    'French-Only Grandmother': {
-      chance: 2,
-      phrases: [
-        'Bonjour.',
-        'Quoi?',
-      ],
-    },
+    // 'French-Only Grandmother': {
+    //   chance: 2,
+    //   phrases: [
+    //     'Bonjour.',
+    //     'Quoi?',
+    //   ],
+    // },
     // 'Random Family Friend': {
     //   chance: 3,
     //   phrases: [

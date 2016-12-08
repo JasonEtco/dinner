@@ -1,0 +1,77 @@
+@import '../../../../styles/tools/tools';
+
+.message {
+    width: 80%;
+    word-wrap: break-word;
+
+    & + & {
+        margin-top: 1em;
+    }
+
+    &__message {
+        display: block;
+        padding: 1em;
+        border-radius: 1em;
+        background: $almost-white;
+        font-size: 0.8rem;
+    }
+
+    &__meta {
+        margin-top: 0.4em;
+        margin-bottom: 2em;
+        color: $grey;
+        font-size: 0.7rem;
+
+        span { display: block; }
+    }
+
+    // Prefix specific styles
+    &--art-teacher-aunt {
+        .message__message {
+            // background-size: 100%;
+            // background-image: url('assets/hippy.jpg') !important;
+        }
+    }
+
+    &.is-me {
+        margin-left: auto;
+
+        .message__message {
+            background: $blue;
+            color: white;
+        }
+
+        .message__meta {
+            text-align: right;
+        }
+    }
+
+    &.is-emoji {
+        .message__message {
+            padding: 0.8rem;
+            font-size: 2rem;
+        }
+    }
+
+    &.is-same {
+        margin-top: 0;
+
+        .message__message {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        + .message {
+            margin-top: 0;
+
+            .message__message {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+        }
+
+        & + & {
+            .message__message { border-radius: 0; }
+        }
+    }
+}
