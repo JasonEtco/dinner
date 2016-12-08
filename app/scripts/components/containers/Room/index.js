@@ -11,7 +11,6 @@ export default class Room extends Component {
     dispatch: PropTypes.func.isRequired,
     socket: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
-    users: PropTypes.object.isRequired,
     inRoom: PropTypes.bool.isRequired,
     currentRoom: PropTypes.oneOfType([
       PropTypes.oneOf(['none']),
@@ -50,14 +49,14 @@ export default class Room extends Component {
   }
 
   renderChatLog() {
-    const { rooms, currentRoom, socket, users } = this.props;
+    const { rooms, currentRoom, socket } = this.props;
     if (!rooms[currentRoom]) return false;
 
     const log = rooms[currentRoom].log || [];
 
     return Object.keys(log).map((key, i, arr) => {
-      const { message, timestamp, user, uid } = log[key];
-      const isSame = arr[i + 1] !== undefined && log[arr[i]].user === log[arr[i + 1]].user;
+      const { message, timestamp, user, uid, prefix } = log[key];
+      const isSame = arr[i + 1] !== undefined && log[arr[i]].uid === log[arr[i + 1]].uid;
 
       return (
         <Message
@@ -67,7 +66,7 @@ export default class Room extends Component {
           isEmoji={h.isEmoji(message)}
           timestamp={timestamp}
           user={user}
-          prefix={users[uid].prefix}
+          prefix={prefix}
           message={message}
         />
       );

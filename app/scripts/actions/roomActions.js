@@ -56,6 +56,7 @@ export function addMessage(msg, roomKey) {
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         user: `${users[socket.id].prefix} ${users[socket.id].name}`,
         uid: socket.id,
+        prefix: users[socket.id].prefix,
       };
 
       fireRef.database().ref(`rooms/${roomKey}/log`).push(msgObj);
