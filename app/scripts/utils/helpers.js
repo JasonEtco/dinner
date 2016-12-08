@@ -52,18 +52,18 @@ const helpers = {
     //   ],
     // },
     'French-Only Grandmother': {
-      chance: 3,
+      chance: 2,
       phrases: [
         'Bonjour.',
         'Quoi?',
       ],
     },
-    // 'Random Family Friend': {
-    //   chance: 3,
-    //   phrases: [
-    //     'Example',
-    //   ],
-    // },
+    'Random Family Friend': {
+      chance: 3,
+      phrases: [
+        'Example',
+      ],
+    },
     // 'Bothersome Cousin': {
     //   chance: 4,
     //   phrases: [
@@ -74,13 +74,13 @@ const helpers = {
     // },
   },
   isEmoji(str) {
-    const ranges = [
-      '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
-      '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
-      '\ud83d[\ude80-\udeff]', // U+1F680 to U+1F6FF
-    ];
+    // const ranges = [
+    //   '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
+    //   '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
+    //   '\ud83d[\ude80-\udeff]', // U+1F680 to U+1F6FF
+    // ];
 
-    if (str.match(ranges.join('|'))) {
+    if (str.match(/^\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]$/g)) {
       return true;
     }
 

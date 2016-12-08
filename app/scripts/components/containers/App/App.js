@@ -9,7 +9,7 @@ import React, { Component, PropTypes } from 'react';
 import h from '../../../utils/helpers';
 import { fireRef } from '../../../utils/store';
 import './App.scss';
-import { getRooms } from '../../../actions/roomActions';
+import { getRooms, leaveRoom } from '../../../actions/roomActions';
 import { getUsers } from '../../../actions/userActions';
 import { me } from '../../../actions/generalActions';
 import Input from '../../global/Input';
@@ -54,7 +54,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { users, socket, rooms } = this.props;
+    const { users, socket, rooms, dispatch } = this.props;
 
     if (!users[socket.id]) {
       return (
@@ -109,7 +109,7 @@ export default class App extends Component {
           />
         </div>
 
-        <div className={`overlay ${currentRoom !== 'none' ? 'is-active' : ''}`} onClick={this.handleLeaveRoom} />
+        <div className={`overlay ${currentRoom !== 'none' ? 'is-active' : ''}`} onClick={() => dispatch(leaveRoom())} />
       </div>
     );
   }

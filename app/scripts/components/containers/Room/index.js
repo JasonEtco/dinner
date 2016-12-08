@@ -55,17 +55,17 @@ export default class Room extends Component {
     const log = rooms[currentRoom].log || [];
 
     return Object.keys(log).map((key, i, arr) => {
+      const { message, timestamp, user } = log[key];
       const classes = classnames(
         'room__message',
         { 'is-me': log[key].uid === socket.id },
         { 'is-same': arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user },
+        { 'is-emoji': h.isEmoji(message) },
       );
-
-      const { message, timestamp, user } = log[key];
 
       return (
         <div className={classes} key={key}>
-          <span className={`room__message__message ${h.isEmoji(message) ? 'is-emoji' : ''}`}>{message}</span>
+          <span className="room__message__message">{message}</span>
           <div className="room__message__meta">
             <span>{moment(timestamp).fromNow()}</span>
             <span>{user}</span>

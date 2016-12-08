@@ -46,11 +46,6 @@
             border-radius: 1em;
             background: $almost-white;
             font-size: 0.8rem;
-
-            &.is-emoji {
-                padding: 0.8rem;
-                font-size: 2rem;
-            }
         }
 
         &__meta {
@@ -72,6 +67,13 @@
 
             .room__message__meta {
                 text-align: right;
+            }
+        }
+
+        &.is-emoji {
+            .room__message__message {
+                padding: 0.8rem;
+                font-size: 2rem;
             }
         }
 
