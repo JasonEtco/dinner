@@ -21,8 +21,6 @@
 
     &:hover { background: lighten(saddlebrown, 10%); }
 
-
-
     &--full {
         &--1 { @include on-circle($item-count: 1, $circle-size: 6em, $item-size: 2em); }
 

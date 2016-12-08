@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
-import classnames from 'classnames';
 import { addMessage, leaveRoom } from '../../../actions/roomActions';
 import h from '../../../utils/helpers';
 import './Room.scss';
+import Message from '../../global/Message';
 import EmojiPicker from '../../global/EmojiPicker';
 
 
@@ -12,6 +11,7 @@ export default class Room extends Component {
     dispatch: PropTypes.func.isRequired,
     socket: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
+    users: PropTypes.object.isRequired,
     inRoom: PropTypes.bool.isRequired,
     currentRoom: PropTypes.oneOfType([
       PropTypes.oneOf(['none']),
@@ -50,29 +50,26 @@ export default class Room extends Component {
   }
 
   renderChatLog() {
-    const { rooms, currentRoom, socket } = this.props;
+    const { rooms, currentRoom, socket, users } = this.props;
     if (!rooms[currentRoom]) return false;
 
     const log = rooms[currentRoom].log || [];
 
     return Object.keys(log).map((key, i, arr) => {
-      const { message, timestamp, user } = log[key];
-      const isSame = arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user;
-      const classes = classnames(
-        'room__message',
-        { 'is-me': log[key].uid === socket.id },
-        { 'is-same': isSame },
-        { 'is-emoji': h.isEmoji(message) },
-      );
+      const { message, timestamp, user, uid } = log[key];
+      const isSame = arr[i + 1] !== undefined && log[arr[i]].user === log[arr[i + 1]].user;
 
       return (
-        <div className={classes} key={key}>
-          <span className="room__message__message">{message}</span>
-          {!isSame && <div className="room__message__meta">
-            <span>{moment(timestamp).fromNow()}</span>
-            <span>{user}</span>
-          </div>}
-        </div>
+        <Message
+          key={key}
+          isMe={uid === socket.id}
+          isSame={isSame}
+          isEmoji={h.isEmoji(message)}
+          timestamp={timestamp}
+          user={user}
+          prefix={users[uid].prefix}
+          message={message}
+        />
       );
     });
   }
