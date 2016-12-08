@@ -100,15 +100,14 @@ export default class App extends Component {
             />)}
         </div>
 
-        <Table {...this.props} inConvo={users[socket.id].currentRoom !== 'none'} />
+        <Table {...this.props} inConvo={currentRoom !== 'none'} />
 
-        <div className={`room-wrapper ${currentRoom !== 'none' ? 'in-room' : ''}`}>
-          <Room
-            {...this.props}
-            currentRoom={isNaN(currentRoom) ? currentRoom : parseInt(currentRoom, 10)}
-            ref={(r) => { this.room = r; }}
-          />
-        </div>
+        <Room
+          {...this.props}
+          inRoom={currentRoom !== 'none'}
+          currentRoom={isNaN(currentRoom) ? currentRoom : parseInt(currentRoom, 10)}
+          ref={(r) => { this.room = r; }}
+        />
 
         <div className={`overlay ${currentRoom !== 'none' ? 'is-active' : ''}`} onClick={() => dispatch(leaveRoom())} />
       </div>

@@ -12,6 +12,7 @@ export default class Room extends Component {
     dispatch: PropTypes.func.isRequired,
     socket: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
+    inRoom: PropTypes.bool.isRequired,
     currentRoom: PropTypes.oneOfType([
       PropTypes.oneOf(['none']),
       PropTypes.number,
@@ -56,39 +57,42 @@ export default class Room extends Component {
 
     return Object.keys(log).map((key, i, arr) => {
       const { message, timestamp, user } = log[key];
+      const isSame = arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user;
       const classes = classnames(
         'room__message',
         { 'is-me': log[key].uid === socket.id },
-        { 'is-same': arr[i + 1] && log[arr[i]].user === log[arr[i + 1]].user },
+        { 'is-same': isSame },
         { 'is-emoji': h.isEmoji(message) },
       );
 
       return (
         <div className={classes} key={key}>
           <span className="room__message__message">{message}</span>
-          <div className="room__message__meta">
+          {!isSame && <div className="room__message__meta">
             <span>{moment(timestamp).fromNow()}</span>
             <span>{user}</span>
-          </div>
+          </div>}
         </div>
       );
     });
   }
 
   render() {
-    const { currentRoom, dispatch } = this.props;
+    const { currentRoom, inRoom, dispatch } = this.props;
     return (
-      <div className="room" ref={(r) => { this.room = r; }}>
-        <button className="room__leave" onClick={() => dispatch(leaveRoom())} style={{ display: currentRoom === 'none' ? 'none' : null }}>Leave Room</button>
-        <div className="room__chatlog">
-          {this.renderChatLog()}
-        </div>
+      <div className={`room-wrapper ${inRoom && 'in-room'}`}>
+        <div className="room" ref={(r) => { this.room = r; }}>
+          <button className="room__leave" onClick={() => dispatch(leaveRoom())} style={{ display: currentRoom === 'none' ? 'none' : null }}>Leave Room</button>
+          <div className="room__chatlog">
+            {this.renderChatLog()}
+          </div>
 
-        <div className="room__form-wrapper">
-          <form onSubmit={this.handleSubmit} className="room__form">
-            <input type="text" name="message" placeholder="Write a message..." ref={(r) => { this.message = r; }} />
-          </form>
-          <EmojiPicker onClick={this.handleEmojiPick} />
+          <div className="room__form-wrapper">
+            <form onSubmit={this.handleSubmit} className="room__form">
+              <input type="text" name="message" placeholder="Write a message..." ref={(r) => { this.message = r; }} />
+            </form>
+            <EmojiPicker onClick={this.handleEmojiPick} />
+          </div>
         </div>
       </div>
     );
