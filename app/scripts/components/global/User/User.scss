@@ -6,9 +6,6 @@
     width: 4em;
     height: 4em;
     border-radius: 50%;
-    background-color: blue;
-
-    &--me { background-color: orangered; }
 
     &__tooltip {
         position: absolute;
@@ -31,6 +28,8 @@
             transform: translate(-50%, 100%);
         }
     }
+
+    &--me .user__tooltip { border: 2px solid $blue; }
 
     // Styles for specific prefixes
 
