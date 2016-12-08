@@ -38,6 +38,12 @@ async function setMessage(prefix, msg) {
       return await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161207T190709Z.296d4a2b078f8029.dfcb3d0f14515b43fc144c059e2af26f98bd74b9&text=${encodeURI(msg)}&lang=en-fr`)
         .then(res => res.json())
         .then(json => json.text[0]);
+    case 'Crazy Uncle': {
+      const arr = msg.split(' ');
+      const ret = [];
+      await arr.forEach(w => ret.push(h.shuffleStr(w)));
+      return await ret.join(' ');
+    }
     default:
       return msg;
   }

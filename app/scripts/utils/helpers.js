@@ -1,36 +1,21 @@
 const helpers = {
-  filterObj(str, obj) {
-    if (str in obj) {
-      return false;
-    }
-    return true;
-  },
-  takeWhile(arr, f) {
-    let ok = true;
-    return arr.filter(e => ok && (ok = f(e)));
-  },
   prefixes: {
-    // Uncle: {
-    //   chance: 3,
-    //   phrases: [
-    //     'It\'s your birthday coming up, huh tiger?',
-    //     'So how\'s school?',
-    //   ],
-    // },
-    // 'Crazy Uncle': {
-    //   chance: 3,
-    //   phrases: [
-    //     'Hey kid, you want some rum?',
-    //     'Let me tell you about your mom when she was a kid...',
-    //   ],
-    // },
-    'Art teacher Aunt': {
+    'Crazy Uncle': {
       chance: 3,
       phrases: [
-        'The world is a maaagical place',
-        'Make love not war man',
+        'Hey kid, you want some rum?',
+        'Let me tell you about your mom when she was a kid...',
+        'Go make me a drink kid.',
+        'I\'ve had a lot to drink kid.',
       ],
     },
+    // 'Art teacher Aunt': {
+    //   chance: 3,
+    //   phrases: [
+    //     'The world is a maaagical place',
+    //     'Make love not war man',
+    //   ],
+    // },
     // 'Conservative Dad': {
     //   chance: 3,
     //   phrases: [
@@ -70,6 +55,9 @@ const helpers = {
     //   chance: 3,
     //   phrases: [
     //     'How\'s school?',
+    //     'How are you liking school?',
+    //     'Do you like school?',
+    //     'Tell me more about your school program.',
     //   ],
     // },
     // 'Bothersome Cousin': {
@@ -97,6 +85,16 @@ const helpers = {
   rando(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   },
+  filterObj(str, obj) {
+    if (str in obj) {
+      return false;
+    }
+    return true;
+  },
+  takeWhile(arr, f) {
+    let ok = true;
+    return arr.filter(e => ok && (ok = f(e)));
+  },
   slugify(str) {
     return str
       .toLowerCase()
@@ -104,6 +102,18 @@ const helpers = {
       .replace(/[-\s]+/g, '-')     // Replace spaces with dashes
       .replace(/[^a-z0-9-]/g, '')  // Remove disallowed symbols
       .replace(/--+/g, '-');
+  },
+  shuffleStr(str) {
+    const a = str.split('');
+    const n = a.length;
+
+    for (let i = n - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a.join('');
   },
 };
 
