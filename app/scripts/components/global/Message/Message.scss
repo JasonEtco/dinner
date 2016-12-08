@@ -1,3 +1,4 @@
+/* stylelint-disable no-browser-hacks */
 @import '../../../../styles/tools/tools';
 
 .message {
@@ -27,9 +28,13 @@
 
     // Prefix specific styles
     &--art-teacher-aunt {
-        .message__message {
-            // background-size: 100%;
-            // background-image: url('assets/hippy.jpg') !important;
+        .message__message { color: white !important; }
+
+        $color-collection: (red, green, yellow);
+        @for $i from 1 through 3 {
+            #{&}:nth-child(3n + #{$i}) .message__message {
+                background-color: nth($color-collection, $i) !important;
+            }
         }
     }
 
