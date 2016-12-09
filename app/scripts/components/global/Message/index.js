@@ -30,8 +30,7 @@ export default class Message extends Component {
       <div className={classes}>
         <div className="message__messages">
           {messages.map((m, i) =>
-            <span key={i} className="message__message">{arr.length > 1 && log[m] !== undefined ? log[m].message : m}</span>
-          )}
+            <span key={i} className="message__message">{arr.length > 1 && log[m] !== undefined ? log[m].message : m}</span>)}
         </div>
         {!isSame && <div className="message__meta">
           <span>{moment(timestamp).fromNow()}</span>
