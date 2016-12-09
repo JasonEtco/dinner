@@ -54,7 +54,7 @@ module.exports = {
       loader: 'json',
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(['css', 'sass!postcss']),
+      loader: ExtractTextPlugin.extract(['css', 'resolve-url-loader', 'sass!postcss?sourceMap']),
     }, {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
