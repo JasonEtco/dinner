@@ -95,6 +95,16 @@ const helpers = {
     let ok = true;
     return arr.filter(e => ok && (ok = f(e)));
   },
+  dropWhile(arr, f) {
+    let ok = false;
+    return arr.filter(e => ok || (ok = !f(e)));
+  },
+  zip(...arrs) {
+    const resultLength = Math.min(...arrs.map(a => a.length));
+    return new Array(resultLength)
+      .fill(0)
+      .map((_, i) => arrs.map(a => a[i]));
+  },
   slugify(str) {
     return str
       .toLowerCase()
@@ -114,6 +124,12 @@ const helpers = {
       a[j] = tmp;
     }
     return a.join('');
+  },
+  getUrlParameter(name, str) {
+    const filteredName = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp(`[\\?&]${filteredName}=([^&#]*)`);
+    const results = regex.exec(str || location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   },
 };
 

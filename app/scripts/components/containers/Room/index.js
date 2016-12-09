@@ -56,18 +56,28 @@ export default class Room extends Component {
 
     return Object.keys(log).map((key, i, arr) => {
       const { message, timestamp, user, uid, prefix } = log[key];
+
       const isSame = arr[i + 1] !== undefined && log[arr[i]].uid === log[arr[i + 1]].uid;
+
+      let messages;
+      if (isSame) {
+        messages = h.takeWhile(arr.slice(i), e => log[e].uid === uid);
+      } else {
+        messages = [message];
+      }
+
+      if (arr[i - 1] !== undefined && log[arr[i]].uid === log[arr[i - 1]].uid) return false;
 
       return (
         <Message
           key={key}
           isMe={uid === socket.id}
-          isSame={isSame}
-          isEmoji={h.isEmoji(message)}
+          isSame={false}
           timestamp={timestamp}
           user={user}
           prefix={prefix}
-          message={message}
+          messages={messages}
+          log={log}
         />
       );
     });

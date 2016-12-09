@@ -47,7 +47,7 @@ export default class App extends Component {
       joined: Date.now(),
       currentRoom: 'none',
       name: this.name.name.value,
-      prefix: h.rando(Object.keys(h.prefixes)),
+      prefix: h.getUrlParameter('prefix') || h.rando(Object.keys(h.prefixes)),
     };
 
     fireRef.database().ref(`users/${id}`).set(obj).then(() => dispatch(me(obj)));

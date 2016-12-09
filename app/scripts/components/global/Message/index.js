@@ -8,27 +8,31 @@ export default class Message extends Component {
   static propTypes = {
     isMe: PropTypes.bool.isRequired,
     isSame: PropTypes.bool.isRequired,
-    isEmoji: PropTypes.bool.isRequired,
     timestamp: PropTypes.number.isRequired,
     user: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
+    messages: PropTypes.array.isRequired,
     prefix: PropTypes.string.isRequired,
+    log: PropTypes.object.isRequired,
   }
 
   render() {
-    const { isMe, isSame, isEmoji, timestamp, user, message, prefix } = this.props;
+    const { isMe, isSame, timestamp, user, messages, prefix, log } = this.props;
+    const arr = Object.keys(log);
 
     const classes = classnames(
         'message',
         `message--${h.slugify(prefix)}`,
         { 'is-me': isMe },
         { 'is-same': isSame },
-        { 'is-emoji': isEmoji },
     );
 
     return (
       <div className={classes}>
-        <span className="message__message">{message}</span>
+        <div className="message__messages">
+          {messages.map((m, i) =>
+            <span key={i} className="message__message">{arr.length > 1 && log[m] !== undefined ? log[m].message : m}</span>
+          )}
+        </div>
         {!isSame && <div className="message__meta">
           <span>{moment(timestamp).fromNow()}</span>
           <span>{user}</span>
