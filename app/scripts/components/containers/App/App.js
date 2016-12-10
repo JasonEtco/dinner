@@ -11,7 +11,7 @@ import { fireRef } from '../../../utils/store';
 import './App.scss';
 import { getRooms, leaveRoom } from '../../../actions/roomActions';
 import { getUsers } from '../../../actions/userActions';
-import { me } from '../../../actions/generalActions';
+import { me, popUpMessage } from '../../../actions/generalActions';
 import Input from '../../global/Input';
 import Button from '../../global/Button';
 import Room from '../Room';
@@ -36,6 +36,11 @@ export default class App extends Component {
     const { dispatch } = this.props;
     dispatch(getRooms());
     dispatch(getUsers());
+  }
+
+  componentDidMount() {
+    const { socket, dispatch } = this.props;
+    socket.on('message', msgObj => dispatch(popUpMessage(msgObj)));
   }
 
   handleSubmit(e) {

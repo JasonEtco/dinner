@@ -14,7 +14,7 @@ const config = {
 
 export const fireRef = firebase.initializeApp(config);
 
-const defaultState = {};
+const defaultState = { general: { messages: {} } };
 const enhancers = compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f,

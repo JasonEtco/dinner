@@ -60,6 +60,16 @@
                         @include triangle(top, 6px, $dark-grey);
                     }
                 }
+
+                .user__message {
+                    transform: translateX(-50%) rotate(180deg);
+
+                    &::before {
+                        top: 0;
+                        transform: translate(-50%, -100%);
+                        @include triangle(top, 6px, $almost-white);
+                    }
+                }
             }
         }
 

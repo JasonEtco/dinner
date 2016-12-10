@@ -66,6 +66,8 @@ export function addMessage(msg, roomKey) {
       };
 
       fireRef.database().ref(`rooms/${roomKey}/log`).push(msgObj);
+
+      if (Math.random() >= 0.5) socket.emit('message', msgObj);
     });
   };
 }

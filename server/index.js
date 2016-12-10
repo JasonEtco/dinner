@@ -37,6 +37,9 @@ io.on('connection', (socket) => {
     if (snap.val() !== null && Object.keys(snap.val()).length >= 6) full = true;
   });
 
+  // When a message is sent by socket event, emit it to all users
+  socket.on('message', msgObj => io.emit('message', msgObj));
+
   // Remove user data on disconnect
   socket.on('disconnect', () => {
     fireRef.database().ref(`users/${socket.id}`).remove();

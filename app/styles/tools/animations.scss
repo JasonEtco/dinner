@@ -27,31 +27,33 @@
     }
 }
 
-//.grow-transition {
-//    &-appear {
-//        opacity: 0.01;
-//
-//        &-active {
-//            opacity: 1;
-//            transition: opacity 200ms $enter;
-//        }
-//    }
-//
-//    &-enter {
-//        opacity: 0.01;
-//
-//        &-active {
-//            opacity: 1;
-//            transition: opacity 200ms $enter;
-//        }
-//    }
-//
-//    &-leave {
-//        opacity: 1;
-//
-//        &-active {
-//            opacity: 0.01;
-//            transition: opacity 200ms $exit;
-//        }
-//    }
-//}
+.grow-transition {
+    &-appear {
+        opacity: 0.01;
+        transform: translateY(10px) scale(0.8);
+
+        &-active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: opacity 200ms $enter, transform 200ms $bounce;
+        }
+    }
+
+    &-enter {
+        opacity: 0.01;
+
+        &-active {
+            opacity: 1;
+            transition: opacity 200ms $enter;
+        }
+    }
+
+    &-leave {
+        opacity: 1;
+
+        &-active {
+            opacity: 0.01;
+            transition: opacity 200ms $exit;
+        }
+    }
+}

@@ -7,7 +7,7 @@
     height: 4em;
     border-radius: 50%;
 
-    &__tooltip {
+    &__tooltip, &__message {
         position: absolute;
         top: -70%;
         left: 50%;
@@ -27,6 +27,15 @@
             @include triangle(bottom, 6px, $dark-grey);
             transform: translate(-50%, 100%);
         }
+    }
+
+    &__message {
+        top: -140%;
+        background: $almost-white;
+        color: black;
+        font-size: 1.4rem;
+
+        &::before { border-top-color: $almost-white; }
     }
 
     &--me .user__tooltip { border: 2px solid $blue; }
@@ -72,7 +81,7 @@
             background: brown;
         }
 
-        &::before { transform: translate(-50%, 0) rotate(24deg); }
+        &::before { left: 0; transform: translate(-50%, 0) rotate(24deg); }
 
         &::after { right: 0; transform: translate(55%, -5%) rotate(-30deg); }
     }

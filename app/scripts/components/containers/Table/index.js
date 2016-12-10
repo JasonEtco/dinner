@@ -6,6 +6,7 @@ import User from '../../global/User/';
 export default class Table extends Component {
   static propTypes = {
     users: PropTypes.object.isRequired,
+    general: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
     socket: PropTypes.object.isRequired,
     inConvo: PropTypes.bool.isRequired,
@@ -39,7 +40,7 @@ export default class Table extends Component {
   }
 
   renderTableSlices() {
-    const { users, socket } = this.props;
+    const { users, socket, general } = this.props;
 
     return Object.keys(users).map((key, i, arr) => {
       if (i > arr / 2) return false;
@@ -54,6 +55,7 @@ export default class Table extends Component {
               name={users[key].name}
               prefix={users[key].prefix}
               tooltip={true}
+              message={general.messages[key]}
             />
           </div>
           <div className="table__table__slice__plate">
