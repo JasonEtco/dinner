@@ -15,7 +15,8 @@ export default class User extends Component {
   state = { showMessage: false }
 
   componentWillReceiveProps(props) {
-    if (props.message && this.props.message && props.message.timestamp !== this.props.message.timestamp) {
+    const { message } = this.props;
+    if (props.message && message && props.message.timestamp !== message.timestamp) {
       clearTimeout(this.timer);
       this.setState({ showMessage: true });
     }

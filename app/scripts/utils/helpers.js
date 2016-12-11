@@ -138,7 +138,7 @@ const helpers = {
     return a.join('');
   },
   getUrlParameter(name, str) {
-    const filteredName = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const filteredName = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
     const regex = new RegExp(`[\\?&]${filteredName}=([^&#]*)`);
     const results = regex.exec(str || location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));

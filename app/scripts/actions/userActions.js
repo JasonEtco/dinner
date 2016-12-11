@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import { fireRef } from '../utils/store';
 
 export const GET_USERS = 'GET_USERS';
