@@ -29,8 +29,10 @@ export default class Message extends Component {
     return (
       <div className={classes}>
         <div className="message__messages">
-          {messages.map((m, i) =>
-            <span key={i} className="message__message">{arr.length > 1 && log[m] !== undefined ? log[m].message : m}</span>)}
+          {messages.map((m, i) => {
+            const msg = arr.length > 1 && log[m] !== undefined ? log[m].message : m;
+            return <span key={i} className={`message__message ${h.isEmoji(msg) ? 'is-emoji' : ''}`}>{msg}</span>;
+          })}
         </div>
         {!isSame && <div className="message__meta">
           <span>{moment(timestamp).fromNow()}</span>

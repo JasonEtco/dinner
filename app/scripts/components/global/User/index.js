@@ -15,7 +15,7 @@ export default class User extends Component {
   state = { showMessage: false }
 
   componentWillReceiveProps(props) {
-    if (props.message && props.message.timestamp !== this.props.message.timestamp) {
+    if (props.message && this.props.message && props.message.timestamp !== this.props.message.timestamp) {
       clearTimeout(this.timer);
       this.setState({ showMessage: true });
     }
@@ -40,7 +40,7 @@ export default class User extends Component {
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}
                 className="user__message"
-              ><span key={message.timestamp}>{message.message}</span></CSS>
+              ><span key={message.timestamp || Date.now()}>{message.message || ''}</span></CSS>
             );
           }
 

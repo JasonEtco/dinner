@@ -18,7 +18,11 @@
     &__message {
         display: block;
 
-        & + & { margin-top: 1em; }
+        &.is-emoji {
+            font-size: 2rem;
+        }
+
+        & + & { margin-top: 0.8rem; }
     }
 
     &__meta {

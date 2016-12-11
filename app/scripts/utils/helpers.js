@@ -70,17 +70,29 @@ const helpers = {
     },
   },
   isEmoji(str) {
-    // const ranges = [
-    //   '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
-    //   '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
-    //   '\ud83d[\ude80-\udeff]', // U+1F680 to U+1F6FF
-    // ];
+    const ranges = [
+      '\ud83c[\udf00-\udfff]', // U+1F300 to U+1F3FF
+      '\ud83d[\udc00-\ude4f]', // U+1F400 to U+1F64F
+      '\ud83d[\ude80-\udeff]', // U+1F680 to U+1F6FF
+    ];
 
-    if (str.match(/^\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]$/g)) {
-      return true;
+    const re = new RegExp(`/^${ranges.join('|')}$/`, 'g');
+
+    let flag;
+    const BreakException = {};
+    try {
+      [...str].forEach((l) => {
+        if (l.match(re)) {
+          flag = true;
+        } else {
+          flag = false;
+          throw BreakException;
+        }
+      });
+    } catch (e) {
+      if (e !== BreakException) throw e;
     }
-
-    return false;
+    return flag;
   },
   rando(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
