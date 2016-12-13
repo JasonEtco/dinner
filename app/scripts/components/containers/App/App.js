@@ -65,6 +65,7 @@ export default class App extends Component {
   render() {
     const { users, socket, rooms, general, dispatch } = this.props;
     const maxPeople = 6;
+    const observer = Object.keys(users).length >= maxPeople && !users[socket.id];
 
     if (general.isFetching) {
       return (
@@ -75,17 +76,7 @@ export default class App extends Component {
       );
     }
 
-    if (Object.keys(users).length >= maxPeople && !users[socket.id]) {
-      return (
-        <div className="app">
-          <div className="app__welcome">
-            <h1>Table's full, sorry!</h1>
-          </div>
-        </div>
-      );
-    }
-
-    if (!users[socket.id]) {
+    if (!users[socket.id] && !observer) {
       return (
         <div className="app">
           <form className="app__welcome" onSubmit={this.handleSubmit}>
@@ -102,6 +93,22 @@ export default class App extends Component {
             />
             <Button text="Go take a seat" style="card--dark" type="submit" />
           </form>
+        </div>
+      );
+    }
+
+    if (observer) {
+      return (
+        <div>
+          <h1
+            style={{
+              position: 'absolute',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >The table's full but you can hang around!</h1>
+
+          <Table {...this.props} inConvo={false} />
         </div>
       );
     }
