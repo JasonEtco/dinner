@@ -47,10 +47,8 @@ export default class Table extends Component {
   renderTableSlices() {
     const { users, socket, general } = this.props;
 
-    return Object.keys(users).map((key, i, arr) => {
-      if (i > arr / 2) return false;
-
-      return (
+    return Object.keys(users).map(key =>
+      (
         <div className="table__table__slice" key={key}>
           <div className="table__table__user">
             <User
@@ -67,8 +65,7 @@ export default class Table extends Component {
             <svg xmlns="http://www.w3.org/2000/svg" width="1.08in" height="76.8" viewBox="0 0 77.71 57.33"><title>plate</title><circle cx="38.48" cy="28.67" r="28.67" fill="#e6e7e8" /><circle cx="38.48" cy="28.67" r="17.1" fill="#d1d3d4" /><path d="M0 47.84V9.57h2.17V19h2.16v11.6c0 8.02-1.94 17.24-4.33 17.24zM77.71 35.35v12.49h-1.5V37.29h-1v10.55h-1.5V37.29h-1v10.55h-1.5V37.29h-1.09v10.55h-1.5V35.26a5 5 0 0 1 1.3-3.26 4.12 4.12 0 0 1 2.45-1.16v-21h1.5v21A4.09 4.09 0 0 1 76.38 32a5.15 5.15 0 0 1 1.33 3.35z" fill="#d1d3d4" /></svg>
           </div>
         </div>
-      );
-    });
+    ));
   }
 
   render() {
