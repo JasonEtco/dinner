@@ -64,7 +64,7 @@ export default class App extends Component {
 
   render() {
     const { users, socket, rooms, general, dispatch } = this.props;
-    const maxPeople = 2;
+    const maxPeople = 6;
 
     if (general.isFetching) {
       return (
