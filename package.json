@@ -8,7 +8,8 @@
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./config/webpack.production.config.js --progress --profile --colors && babel server -d dist",
     "serve": "node dist/index.js",
     "lint": "eslint \"app/scripts/**/*.js\"",
-    "local": "npm run build && cross-env NODE_ENV=production PORT=4000 npm run serve"
+    "local": "npm run build && cross-env NODE_ENV=production PORT=4000 npm run serve",
+    "heroku-postbuild": "npm run build && npm run serve"
   },
   "babel": {
     "presets": [
