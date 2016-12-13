@@ -25,13 +25,18 @@ export default class Table extends Component {
     // Prefix specific functionality
     // If Dog, leave/join a random room every 8 seconds
     if (prefix === 'Dog') {
+      // Clear timer on update
+      clearTimeout(this.timer);
+
+      // Set new timer
       this.timer = setTimeout(() => {
         if (currentRoom !== 'none') {
+          // If in a room, leave it then
           this.props.dispatch(leaveRoom(currentRoom));
         } else {
           joinRoom(Math.floor(Math.random() * rooms.length), socket.id);
         }
-      }, 8000);
+      }, 4000);
     }
   }
 
