@@ -30,30 +30,34 @@
 .grow-transition {
     &-appear {
         opacity: 0.01;
-        transform: translateY(10px) scale(0.8);
+        transform: translate(-50%, 10px) scale(0.6);
 
         &-active {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translate(-50%, 0) scale(1);
             transition: opacity 200ms $enter, transform 200ms $bounce;
         }
     }
 
     &-enter {
         opacity: 0.01;
+        transform: translate(-50%, 0) scale(1);
 
         &-active {
             opacity: 1;
-            transition: opacity 200ms $enter;
+            transform: translate(-50%, 10px) scale(0.6);
+            transition: opacity 200ms $enter, transform 200ms $bounce;
         }
     }
 
     &-leave {
         opacity: 1;
+        transform: translate(-50%, 0) scale(1);
 
         &-active {
             opacity: 0.01;
-            transition: opacity 200ms $exit;
+            transform: translate(-50%, 10px) scale(0.6);
+            transition: opacity 200ms $enter, transform 200ms $bounce;
         }
     }
 }

@@ -33,7 +33,11 @@
         top: -140%;
         background: $almost-white;
         color: black;
-        font-size: 1.4rem;
+        font-size: 1rem;
+        text-align: center;
+        transform-origin: bottom center;
+
+        &--giant { font-size: 1.4rem; }
 
         &::before { border-top-color: $almost-white; }
     }

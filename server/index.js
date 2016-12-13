@@ -30,11 +30,6 @@ app.use(compression());
 const rooms = fireRef.database().ref('rooms');
 
 io.on('connection', (socket) => {
-  // Test if the table is full (6 people)
-  fireRef.database().ref('users').once('value', (snap) => {
-    if (snap.val() !== null && Object.keys(snap.val()).length >= 6) full = true;
-  });
-
   // When a message is sent by socket event, emit it to all users
   socket.on('message', msgObj => io.emit('message', msgObj));
 

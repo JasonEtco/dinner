@@ -12,21 +12,24 @@ export default class User extends Component {
     tooltip: PropTypes.bool.isRequired,
   }
 
-  state = { showMessage: false }
+  state = { showMessage: false, giant: false }
 
   componentWillReceiveProps(props) {
     const { message } = this.props;
     if (props.message && message && props.message.timestamp !== message.timestamp) {
-      clearTimeout(this.timer);
-      this.setState({ showMessage: true });
+      console.log(props.message.timestamp - message.timestamp);
+      this.setState({ showMessage: true, giant: props.message.timestamp - message.timestamp < 2000 });
     }
+  }
 
+  componentDidUpdate() {
+    clearTimeout(this.timer);
     this.timer = setTimeout(() => this.setState({ showMessage: false }), 4000);
   }
 
   render() {
     const { name, prefix, isMe, tooltip, message } = this.props;
-    const { showMessage } = this.state;
+    const { showMessage, giant } = this.state;
 
     return (
       <div className={`user ${isMe ? 'user--me' : ''} user--${h.slugify(prefix)}`}>
@@ -37,11 +40,15 @@ export default class User extends Component {
               <CSS
                 transitionName="grow-transition"
                 transitionAppear={true}
-                transitionAppearTimeout={400}
-                transitionEnterTimeout={400}
-                transitionLeaveTimeout={400}
-                className="user__message"
-              ><span key={message.timestamp || Date.now()}>{message.message || ''}</span></CSS>
+                transitionAppearTimeout={200}
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+                component="div"
+              >
+                <div key={message.timestamp} className={`user__message ${giant ? 'user__message--giant' : ''}`}>
+                  {message.message}
+                </div>
+              </CSS>
             );
           }
 
