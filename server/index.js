@@ -29,8 +29,6 @@ app.use(compression());
 
 const rooms = fireRef.database().ref('rooms');
 
-let full = false;
-
 io.on('connection', (socket) => {
   // Test if the table is full (6 people)
   fireRef.database().ref('users').once('value', (snap) => {
@@ -83,22 +81,14 @@ if (isDeveloping) {
   app.use(webpackHotMiddleware(compiler));
 
   app.get('/', (req, res) => {
-    if (full) {
-      res.write('Table\'s Full!');
-    } else {
-      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')));
-      res.end();
-    }
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')));
+    res.end();
   });
 } else {
   app.use(express.static(__dirname));
 
   app.get('/', (req, res) => {
-    if (full) {
-      res.write('Table\'s Full!');
-    } else {
-      res.sendFile(path.join(__dirname, 'index.html'));
-    }
+    res.sendFile(path.join(__dirname, 'index.html'));
   });
 }
 

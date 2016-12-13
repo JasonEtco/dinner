@@ -42,6 +42,7 @@ export default class RoomTile extends Component {
             name={users[key].name}
             prefix={users[key].prefix}
             tooltip={false}
+            hideMessages
           />)}
       </button>
     );

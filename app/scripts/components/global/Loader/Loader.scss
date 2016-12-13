@@ -1,10 +1,22 @@
-.loader {
-    color: blue;
+@import '../../../../styles/tools/tools';
 
-    &--center {
+.loader {
+    @include on-circle($item-count: 8, $circle-size: 6em, $item-size: 2em);
+    animation: spin 4000ms infinite linear;
+
+    .user {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        display: block;
+        width: 2em;
+        height: 2em;
+        margin: -1em;
+        animation: spin 4000ms infinite linear reverse;
     }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+
+    100% { transform: rotate(360deg); }
 }

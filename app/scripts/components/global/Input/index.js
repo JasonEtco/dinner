@@ -7,13 +7,14 @@ export default class Input extends Component {
     full: PropTypes.bool,
     autofocus: PropTypes.bool,
     required: PropTypes.bool,
+    disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     max: PropTypes.number,
   };
 
   render() {
-    const { name, placeholder, label, full, autofocus, required, max } = this.props;
+    const { name, placeholder, label, full, autofocus, required, max, disabled } = this.props;
 
     return (
       <div className={`input ${full ? 'input--full' : ''}`}>
@@ -27,6 +28,7 @@ export default class Input extends Component {
           ref={(r) => { this[name] = r; }}
           required={required}
           autoFocus={autofocus}
+          disabled={disabled}
         />
       </div>
     );

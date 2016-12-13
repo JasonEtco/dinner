@@ -14,6 +14,7 @@ import { getUsers } from '../../../actions/userActions';
 import { me, popUpMessage } from '../../../actions/generalActions';
 import Input from '../../global/Input';
 import Button from '../../global/Button';
+import Loader from '../../global/Loader';
 import Room from '../Room';
 import RoomTile from '../RoomTile';
 import Table from '../Table';
@@ -22,6 +23,7 @@ export default class App extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    general: PropTypes.object.isRequired,
     rooms: PropTypes.array.isRequired,
     socket: PropTypes.object.isRequired,
   }
@@ -29,7 +31,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { loading: true };
+    this.state = { disabled: false };
   }
 
   componentWillMount() {
@@ -55,11 +57,33 @@ export default class App extends Component {
       prefix: h.getUrlParameter('prefix') || h.rando(Object.keys(h.prefixes)),
     };
 
+    this.setState({ disabled: true });
+
     fireRef.database().ref(`users/${id}`).set(obj).then(() => dispatch(me(obj)));
   }
 
   render() {
-    const { users, socket, rooms, dispatch } = this.props;
+    const { users, socket, rooms, general, dispatch } = this.props;
+    const maxPeople = 2;
+
+    if (general.isFetching) {
+      return (
+        <div className="app loading">
+          <Loader />
+          <h1>Loading</h1>
+        </div>
+      );
+    }
+
+    if (Object.keys(users).length >= maxPeople && !users[socket.id]) {
+      return (
+        <div className="app">
+          <div className="app__welcome">
+            <h1>Table's full, sorry!</h1>
+          </div>
+        </div>
+      );
+    }
 
     if (!users[socket.id]) {
       return (
@@ -74,6 +98,7 @@ export default class App extends Component {
               label="Your name"
               placeholder="John Smith"
               ref={(r) => { this.name = r; }}
+              disabled={this.state.disabled}
             />
             <Button text="Go take a seat" style="card--dark" type="submit" />
           </form>

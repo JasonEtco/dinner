@@ -14,7 +14,13 @@ const config = {
 
 export const fireRef = firebase.initializeApp(config);
 
-const defaultState = { general: { messages: {} } };
+const defaultState = {
+  general: {
+    messages: {},
+    isFetching: true,
+  },
+};
+
 const enhancers = compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f,

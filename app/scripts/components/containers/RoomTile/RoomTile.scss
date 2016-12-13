@@ -34,17 +34,17 @@
         &--5 { @include on-circle($item-count: 5, $circle-size: 6em, $item-size: 2em); }
 
         &--6 { @include on-circle($item-count: 6, $circle-size: 6em, $item-size: 2em); }
+    }
 
-        .user {
-            &--french-only-grandmother {
-                &::before, &::after { border-width: 1px; }
-            }
+    .user {
+        &--french-only-grandmother {
+            &::before, &::after { border-width: 1px; }
+        }
 
-            &--conservative-dad {
-                &::before { border-width: 2px; }
+        &--conservative-dad {
+            &::before { border-width: 2px; }
 
-                &::after { border-width: 4px; }
-            }
+            &::after { border-width: 4px; }
         }
     }
 }

@@ -1,4 +1,5 @@
 import { ME, POPUP_MESSAGE } from '../actions/generalActions';
+import { STOP_FETCHING } from '../actions/userActions';
 
 export default function general(state = {}, action) {
   switch (action.type) {
@@ -20,6 +21,13 @@ export default function general(state = {}, action) {
             timestamp: action.msgObj.timestamp,
           },
         },
+      };
+    }
+
+    case STOP_FETCHING: {
+      return {
+        ...state,
+        isFetching: false,
       };
     }
 

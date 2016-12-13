@@ -6,6 +6,8 @@
     justify-content: center;
     height: 90vh;
 
+    &.loading { flex-direction: column; }
+
     &__welcome {
         display: inline-flex;
         align-items: center;
